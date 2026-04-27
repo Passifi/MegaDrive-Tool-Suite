@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Code/MegadriveTools/build/cmake_install.cmake",
+		"C:/Code/MegadriveTools/build/vendored/SDL/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
