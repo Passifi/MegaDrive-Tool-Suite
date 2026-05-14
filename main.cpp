@@ -7,28 +7,45 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_surface.h"
+#include <stdio.h>
+#include <vector>
 #include <cstdint>
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #define TileSize 8
+
+class Tilemap {
+  public: 
+    Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height),surfaces(1024) {
+    
+    }
+  size_t width,height,size;
+  std::vector<uint16_t> data;
+  std::vector<SDL_Surface> surfaces;
+
+  private:
+  };
+
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static float mouseX,mouseY = 4.0;
 static int screenWidth = 800; 
 static int screenHeight = 600;
 const size_t tilemapSize = (800/8)*(600/8);
+static Tilemap map(800/8,600/8);
 static bool tilemap[(800/8)*(600/8)];
-static bool mousedown = true;
+static bool mousedown = false;
 /* This function runs once at startup. */
 SDL_Surface* createTile(int width, int height ) {
   auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
   if(!surface) return NULL;
   SDL_LockSurface(surface);
-  Uint32 color = SDL_MapSurfaceRGBA(surface,  0xff, 0xf2, 0x33,  0xff);
   for (int y=0; y<8; y++) {
       Uint8* row = (Uint8*)surface->pixels + y * surface->pitch;
       for (int x=0; x< 8;x++) {
+
+        Uint32 color = SDL_MapSurfaceRGBA(surface,  0x0f, 0xff&(x*10), 0xff&(y*13),  0xff);
         Uint32* pixel = (Uint32*)(row + x * 4);
         *pixel = color;
       } 
@@ -43,14 +60,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
-    for(int i = 0; i < tilemapSize; i++) {
-      if(i % 2 == 0) {
-        tilemap[i] = true;
-      }
-      else 
-      {
-        tilemap[i] = false;
-      }
+    for(int i = 0; i < map.size; i++) {
+        map.data[i] = 0; 
     }
     return SDL_APP_CONTINUE;
 }
@@ -66,6 +77,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
       SDL_GetMouseState(&mouseX, &mouseY);
     }
     if(event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+      mousedown = true;
     }
     return SDL_APP_CONTINUE;
 }
@@ -101,18 +113,29 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     SDL_FRect src_rect = {0,0,8,8};
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     auto text = SDL_CreateTextureFromSurface(renderer, surface);
-    int xSet = (((int)rx)/8)*8; 
-    int ySet = (((int)ry)/8)*8; 
-    SDL_FRect dst_rect = {(float)xSet,(float)ySet,8,8};
+    int xSet = (((int)rx)/8) ;
+    int ySet = (((int)ry)/8);
+    char xStr[20];
+    char yStr[20];
+    sprintf(xStr,"%d",xSet);
+    sprintf(yStr,"%d",ySet);
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDebugText(renderer, 400.0f, 20.0f, xStr );
+    SDL_RenderDebugText(renderer, 400.0f, 40.0f, yStr );
     if(mousedown) {
-      tilemap[xSet+ySet*(screenWidth/8)] = !tilemap[xSet+ySet*(screenWidth/8)];
+      map.data[xSet+ySet*100] = 1;
       mousedown = false;
     }
+    xSet*=8;
+    ySet*=8;
+
+    SDL_FRect dst_rect = {(float)xSet,(float)ySet,8,8};
     SDL_RenderTexture(renderer, text,&src_rect , &dst_rect); 
     for(int yPos = 0; yPos < screenHeight/8; yPos++) {
       dst_rect.y = (float)yPos; 
       for(int xPos = 0; xPos < screenWidth/8; xPos++) {
-        if(tilemap[xPos+yPos])  {
+        if(map.data[xPos+yPos*100] != 0)  {
         dst_rect.x = (float)xPos*8;
         dst_rect.y = (float)yPos*8;
         SDL_RenderTexture(renderer, text,&src_rect , &dst_rect); 
