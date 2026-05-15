@@ -76,6 +76,27 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     return SDL_APP_CONTINUE;
 }
 
+SDL_Surface* createTileFromBinaryData(std::vector<char> data,std::vector<uint16_t> palette) {
+       
+  auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
+  for(int y = 0; y < 8; y++) {
+   
+    Uint8* row = (Uint8*)surface->pixels + y * surface->pitch;
+  for(int x = 0; x < 4; x++) {
+   auto byte = (uint8_t)data[y*4+x]; 
+   auto colorData1 =  palette[(byte&0xf0)>>4]; 
+   auto colorData2 =  palette[(byte&0xf)]; 
+   uint32_t color1 = SDL_MapSurfaceRGBA(surface, (colorData1&0b111000000)>>6, (colorData1&0b111000)>>3,(colorData1&0b111),0xff);
+   uint32_t color2 = SDL_MapSurfaceRGBA(surface, (colorData2&0b111000000)>>6, (colorData2&0b111000)>>3,(colorData2&0b111),0xff);
+    Uint32* pixel1 = (Uint32*)(row + x*2*4);  
+    Uint32* pixel2 = (Uint32*)(row + (x+1)*2*4);  
+    *pixel1 = colorData1; 
+    *pixel2 = colorData2; 
+  }
+ }  
+  return surface;
+}
+
 /* This function runs when a new event (mouse input, keypresses, etc) occurs. */
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
