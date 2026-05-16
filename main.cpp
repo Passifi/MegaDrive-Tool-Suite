@@ -15,18 +15,8 @@
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include "include/Tiledata.h"
 #define TileSize 8
-
-class Tilemap {
-  public: 
-    Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height) {
-    
-    }
-  size_t width,height,size;
-  std::vector<uint16_t> data;
-  std::vector<SDL_Texture*> tiles;
-  private:
-  };
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -57,6 +47,29 @@ SDL_Surface* createTile(int width, int height ) {
   SDL_UnlockSurface(surface);
   return surface;
 }
+
+SDL_Surface* createTileFromBinaryData(std::vector<uint8_t> data,std::vector<uint16_t> palette) {
+       
+  auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
+  for(int y = 0; y < 8; y++) {
+   
+    Uint8* row = (Uint8*)surface->pixels + y * surface->pitch;
+  for(int x = 0; x < 4; x++) {
+   auto byte = (uint8_t)data[y*4+x]; 
+   auto colorData1 =  palette[(byte&0xf0)>>4]; 
+   auto colorData2 =  palette[(byte&0xf)]; 
+   uint32_t color1 = SDL_MapSurfaceRGBA(surface, ((colorData1&0b111000000)>>6)*36, ((colorData1&0b111000)>>3)*36,(colorData1&0b111)*36,0xff);
+   uint32_t color2 = SDL_MapSurfaceRGBA(surface, ((colorData2&0b111000000)>>6)*36, ((colorData2&0b111000)>>3)*36,(colorData2&0b111)*36,0xff);
+    Uint32* pixel1 = (Uint32*)(row + x*2*4);  
+    Uint32* pixel2 = (Uint32*)(row + (x*2+1)*4);  
+    *pixel1 = color1; 
+    *pixel2 = color2; 
+  }
+ }  
+  return surface;
+}
+
+
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
     /* Create the window */
@@ -68,33 +81,28 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
         map.data[i] = 0; 
 
     }
-    for(int i = 0; i < 200; i++) {
-      auto sur = createTile(8,8);
+    std::vector<uint16_t> palette = {
+00, 00, 0x04, 0x41 ,0x02 ,0x25 ,0x06 ,0x46, 0x02, 0xA3,0x04,0xC4, 0x08 ,0x61, 00, 00,
+00, 00, 00, 00, 00, 00, 00, 00, 00 ,00, 00, 00, 00, 00, 00, 00
 
+    };
+    std::vector<uint8_t> data = {
+    0x66, 0x66, 0x66, 0x66,
+    0x03, 0x22, 0x55, 0x44,
+    0x00, 0x32, 0x25, 0x54, 
+    0x00, 0x03, 0x22, 0x55,
+   0x66, 0x66, 0x66, 0x66,
+    0x03, 0x22, 0x55, 0x44,
+    0x00, 0x32, 0x25, 0x54, 
+    0x00, 0x03, 0x22, 0x55
+
+    };
+    for(int i = 0; i < 200; i++) {
+      auto sur = createTileFromBinaryData(data,palette);
+      printf("Succesfully created surface\n");
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
     }
     return SDL_APP_CONTINUE;
-}
-
-SDL_Surface* createTileFromBinaryData(std::vector<char> data,std::vector<uint16_t> palette) {
-       
-  auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
-  for(int y = 0; y < 8; y++) {
-   
-    Uint8* row = (Uint8*)surface->pixels + y * surface->pitch;
-  for(int x = 0; x < 4; x++) {
-   auto byte = (uint8_t)data[y*4+x]; 
-   auto colorData1 =  palette[(byte&0xf0)>>4]; 
-   auto colorData2 =  palette[(byte&0xf)]; 
-   uint32_t color1 = SDL_MapSurfaceRGBA(surface, (colorData1&0b111000000)>>6, (colorData1&0b111000)>>3,(colorData1&0b111),0xff);
-   uint32_t color2 = SDL_MapSurfaceRGBA(surface, (colorData2&0b111000000)>>6, (colorData2&0b111000)>>3,(colorData2&0b111),0xff);
-    Uint32* pixel1 = (Uint32*)(row + x*2*4);  
-    Uint32* pixel2 = (Uint32*)(row + (x+1)*2*4);  
-    *pixel1 = colorData1; 
-    *pixel2 = colorData2; 
-  }
- }  
-  return surface;
 }
 
 /* This function runs when a new event (mouse input, keypresses, etc) occurs. */
@@ -105,6 +113,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
         return SDL_APP_SUCCESS;
       } 
       else if(event->key.key == SDLK_LEFT) {
+        if(currentTile > 0) 
         currentTile--; 
         
       }

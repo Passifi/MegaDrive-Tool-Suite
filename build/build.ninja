@@ -46,7 +46,13 @@ build cmake_object_order_depends_target_megaTile: phony || cmake_object_order_de
 
 build CMakeFiles/megaTile.dir/main.cpp.obj: CXX_COMPILER__megaTile_unscanned_ C$:/Code/MegadriveTools/main.cpp || cmake_object_order_depends_target_megaTile
   DEP_FILE = CMakeFiles\megaTile.dir\main.cpp.obj.d
-  INCLUDES = -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include
+  INCLUDES = -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include
+  OBJECT_DIR = CMakeFiles\megaTile.dir
+  OBJECT_FILE_DIR = CMakeFiles\megaTile.dir
+
+build CMakeFiles/megaTile.dir/Tiledata.cpp.obj: CXX_COMPILER__megaTile_unscanned_ C$:/Code/MegadriveTools/Tiledata.cpp || cmake_object_order_depends_target_megaTile
+  DEP_FILE = CMakeFiles\megaTile.dir\Tiledata.cpp.obj.d
+  INCLUDES = -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include
   OBJECT_DIR = CMakeFiles\megaTile.dir
   OBJECT_FILE_DIR = CMakeFiles\megaTile.dir
 
@@ -58,7 +64,7 @@ build CMakeFiles/megaTile.dir/main.cpp.obj: CXX_COMPILER__megaTile_unscanned_ C$
 #############################################
 # Link the executable megaTile.exe
 
-build megaTile.exe: CXX_EXECUTABLE_LINKER__megaTile_ CMakeFiles/megaTile.dir/main.cpp.obj | vendored/SDL/libSDL3.dll.a C$:/Code/MegadriveTools/vendored/SDL/src/dynapi/SDL_dynapi.sym || SDL3.dll
+build megaTile.exe: CXX_EXECUTABLE_LINKER__megaTile_ CMakeFiles/megaTile.dir/main.cpp.obj CMakeFiles/megaTile.dir/Tiledata.cpp.obj | vendored/SDL/libSDL3.dll.a C$:/Code/MegadriveTools/vendored/SDL/src/dynapi/SDL_dynapi.sym || SDL3.dll
   LINK_FLAGS = -mwindows
   LINK_LIBRARIES = vendored/SDL/libSDL3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\megaTile.dir

@@ -1,9 +1,15 @@
 [
 {
   "directory": "C:/Code/MegadriveTools/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\main.cpp.obj -c C:\\Code\\MegadriveTools\\main.cpp",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\main.cpp.obj -c C:\\Code\\MegadriveTools\\main.cpp",
   "file": "C:\\Code\\MegadriveTools\\main.cpp",
   "output": "CMakeFiles\\megaTile.dir\\main.cpp.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\Tiledata.cpp.obj -c C:\\Code\\MegadriveTools\\Tiledata.cpp",
+  "file": "C:\\Code\\MegadriveTools\\Tiledata.cpp",
+  "output": "CMakeFiles\\megaTile.dir\\Tiledata.cpp.obj"
 },
 {
   "directory": "C:/Code/MegadriveTools/build",
