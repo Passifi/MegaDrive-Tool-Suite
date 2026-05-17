@@ -16,6 +16,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include "include/Tiledata.h"
+#include "include/fileIO.h"
 #define TileSize 8
 
 static SDL_Window *window = NULL;
@@ -69,6 +70,13 @@ SDL_Surface* createTileFromBinaryData(std::vector<uint8_t> data,std::vector<uint
   return surface;
 }
 
+void initializeMap() {
+    for(int i = 0; i < map.size; i++) {
+        map.data[i] = 0; 
+
+    }
+    
+}
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
@@ -77,28 +85,11 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
-    for(int i = 0; i < map.size; i++) {
-        map.data[i] = 0; 
+    initializeMap(); 
+    TileContainer container = loadTiles("tiles.bin");
 
-    }
-    std::vector<uint16_t> palette = {
-00, 00, 0x04, 0x41 ,0x02 ,0x25 ,0x06 ,0x46, 0x02, 0xA3,0x04,0xC4, 0x08 ,0x61, 00, 00,
-00, 00, 00, 00, 00, 00, 00, 00, 00 ,00, 00, 00, 00, 00, 00, 00
-
-    };
-    std::vector<uint8_t> data = {
-    0x66, 0x66, 0x66, 0x66,
-    0x03, 0x22, 0x55, 0x44,
-    0x00, 0x32, 0x25, 0x54, 
-    0x00, 0x03, 0x22, 0x55,
-   0x66, 0x66, 0x66, 0x66,
-    0x03, 0x22, 0x55, 0x44,
-    0x00, 0x32, 0x25, 0x54, 
-    0x00, 0x03, 0x22, 0x55
-
-    };
     for(int i = 0; i < 200; i++) {
-      auto sur = createTileFromBinaryData(data,palette);
+      auto sur = createTileFromBinaryData(container.data(),);
       printf("Succesfully created surface\n");
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
     }

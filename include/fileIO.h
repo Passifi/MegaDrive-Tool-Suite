@@ -13,33 +13,57 @@ struct TilemapHeader {
   int verticalMapSize;
   int horizontalMapSize;
 };
-
+const unsigned int PaletteSize = 16;
+const unsigned int TileSize = 32;
 // PaletteSize * numberOfPalettes => start of tileData, tileSize * numberOfTiles => startof tilemap  
 
-using std::vector,std::array;
+using std::vector,std::array; 
+using Tile = std::array<uint8_t,TileSize>;
+using Palette = std::array<uint32_t,PaletteSize>;
+using TileContainer = std::vector<Tile>;
+using Palettes = std::vector<Palette>;
 class Tiledata {
   public:
-  
-  private:
-  std::vector<vector<uint16_t>> palettes; 
-  vector<array<uint8_t,32>> tiles; 
+   std::vector<vector<uint16_t>> palettes; 
+  TileContainer tiles; 
 };
 
-vector<array<uint8_t,32>> loadTiles(std::string path) {
+Palettes loadPalettes(std::string path) {
+  std::ifstream file;
+  file.open(path,std::ios::binary | std::ios::in);
+  Palettes result;
+  if(file) {
+    while(true) {
+      Palette currentPalette;
+      file.read(reinterpret_cast<char*>(currentPalette.data()),PaletteSize);
+      if(file.gcount() == PaletteSize) {
+        result.push_back(std::move(currentPalette));
+      } 
+      else {
+        if(file.gcount() != 0) {
+          std::cout << "Insufficient palette data\n";
+        }
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+TileContainer loadTiles(std::string path) {
   std::ifstream file; 
-  vector<array<uint8_t,32>> data;
+  TileContainer data;
   file.open(path,std::ios::binary | std::ios::in);
   if(file.is_open()) {
     while(true) {
       char current; 
-      array<uint8_t,32> tile;
+      Tile tile;
       file.read(reinterpret_cast<char*>(tile.data()),32);
-      if(file.gcount() == 32) {
+      if(file.gcount() == TileSize) {
         data.push_back(std::move(tile)); 
-
       } else {
         if(file.gcount() != 0) {
-          std::cout << "INcomplete tile at the end of the file\n";
+          std::cout << "Incomplete tile at the end of the file\n";
         }
         break;
       }
