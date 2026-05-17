@@ -18,7 +18,7 @@
 #include "include/Tiledata.h"
 #include "include/fileIO.h"
 #define TileSize 8
-
+#define NO_TILE -1
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static float mouseX,mouseY = 4.0;
@@ -29,6 +29,7 @@ const size_t tilemapSize = (800/8)*(600/8);
 static Tilemap map(800/8,600/8);
 static bool tilemap[(800/8)*(600/8)];
 static bool mousedown = false;
+static std::ofstream logFile;
 /* This function runs once at startup. */
 SDL_Surface* createTile(int width, int height ) {
   auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
@@ -49,7 +50,7 @@ SDL_Surface* createTile(int width, int height ) {
   return surface;
 }
 
-SDL_Surface* createTileFromBinaryData(std::vector<uint8_t> data,std::vector<uint16_t> palette) {
+SDL_Surface* createTileFromBinaryData(Tile data,Palette palette) {
        
   auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
   for(int y = 0; y < 8; y++) {
@@ -72,31 +73,32 @@ SDL_Surface* createTileFromBinaryData(std::vector<uint8_t> data,std::vector<uint
 
 void initializeMap() {
     for(int i = 0; i < map.size; i++) {
-        map.data[i] = 0; 
-
+        map.data[i] = NO_TILE; 
     }
-    
 }
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
-    /* Create the window */
+    logFile.open("log.txt",std::ios::out | std::ios::app);
+    auto* old_cout = std::cout.rdbuf(logFile.rdbuf());
+    auto* old_clog = std::clog.rdbuf(logFile.rdbuf());
     if (!SDL_CreateWindowAndRenderer("Hello World", screenWidth, screenHeight, SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
     initializeMap(); 
-    TileContainer container = loadTiles("tiles.bin");
-
-    for(int i = 0; i < 200; i++) {
-      auto sur = createTileFromBinaryData(container.data(),);
-      printf("Succesfully created surface\n");
+    TileContainer container = loadTiles("build\\mouse.bin");
+    std::cout << "Loaded in container of size: " << container.size() << std::endl;
+    Palettes palettes = loadPalettes("build\\mouse_palette.bin");
+    std::cout << "Loaded in palette of size: " << palettes.size() << std::endl;
+    for(auto el : container) {
+      auto sur = createTileFromBinaryData(el,palettes.front());
+      std::cout << "Created Surface!\n"; 
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
     }
     return SDL_APP_CONTINUE;
 }
 
-/* This function runs when a new event (mouse input, keypresses, etc) occurs. */
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
     if(event->type == SDL_EVENT_KEY_DOWN) {
@@ -110,6 +112,9 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
       }
       else if(event->key.key == SDLK_RIGHT) {
         currentTile++;
+        if(currentTile >= map.tiles.size() ) {
+          currentTile = map.tiles.size()-1;
+        }
       }
     }
 
@@ -138,18 +143,10 @@ SDL_AppResult drawTile(SDL_Renderer* renderer, SDL_Point coord) {
 /* This function runs once per frame, and is the heart of the program. */
 SDL_AppResult SDL_AppIterate(void *appstate)
 {
-    const char *message = "Hello World!";
     int w = 0, h = 0;
     float x, y;
     const float scale = 4.0f;
-
-    /* Center the message and scale it up */
-    SDL_GetRenderOutputSize(renderer, &w, &h);
-    SDL_SetRenderScale(renderer, scale, scale);
-    x = ((w / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE * SDL_strlen(message)) / 2;
-    y = ((h / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE) / 2;
     
-    /* Draw the message */
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     static float rx,ry;
@@ -174,18 +171,20 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     ySet*=8;
 
     SDL_FRect dst_rect = {(float)xSet,(float)ySet,8,8};
-    SDL_RenderTexture(renderer, map.tiles[currentTile],&src_rect , &dst_rect); 
     for(int yPos = 0; yPos < screenHeight/8; yPos++) {
       dst_rect.y = (float)yPos; 
       for(int xPos = 0; xPos < screenWidth/8; xPos++) {
         auto currentPos = map.data[xPos+yPos*100];
-        if(currentPos != 0)  {
+        if(currentPos != NO_TILE)  {
         dst_rect.x = (float)xPos*8;
         dst_rect.y = (float)yPos*8;
         SDL_RenderTexture(renderer, map.tiles[currentPos],&src_rect , &dst_rect); 
         }
       }
    }
+    dst_rect.x = (float)xSet;
+    dst_rect.y = (float)ySet;
+    SDL_RenderTexture(renderer, map.tiles[currentTile],&src_rect , &dst_rect); 
     SDL_RenderPresent(renderer);
     SDL_DestroySurface(surface);
     return SDL_APP_CONTINUE;

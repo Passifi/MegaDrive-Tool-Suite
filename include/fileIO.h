@@ -47,6 +47,9 @@ Palettes loadPalettes(std::string path) {
       }
     }
   }
+  else {
+    std::cout << "Couldn't open file\n";
+  }
   return result;
 }
 
@@ -68,6 +71,9 @@ TileContainer loadTiles(std::string path) {
         break;
       }
     }
+  }
+  else {
+    std::cout << "Couldn't open file\n";
   }
   return data;
 }

@@ -10,7 +10,7 @@ class Tilemap {
     
     }
   size_t width,height,size;
-  std::vector<uint16_t> data;
+  std::vector<int> data;
   std::vector<SDL_Texture*> tiles;
   private:
   };
