@@ -17,8 +17,10 @@
 #include <SDL3/SDL_main.h>
 #include "include/Tiledata.h"
 #include "include/fileIO.h"
+#include "include/ControlStructure.h"
 #define TileSize 8
 #define NO_TILE -1
+
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static float mouseX,mouseY = 4.0;
@@ -26,28 +28,38 @@ static int currentTile = 0;
 static int screenWidth = 800; 
 static int screenHeight = 600;
 const size_t tilemapSize = (800/8)*(600/8);
-static Tilemap map(800/8,600/8);
+static Tilemap map(screenWidth/TileSize,screenHeight/TileSize);
 static bool tilemap[(800/8)*(600/8)];
+static CursorSettings cursorSettings;
 static bool mousedown = false;
 static std::ofstream logFile;
 /* This function runs once at startup. */
-SDL_Surface* createTile(int width, int height ) {
-  auto surface = SDL_CreateSurface(8,8, SDL_PIXELFORMAT_RGBA8888);
-  if(!surface) return NULL;
-  SDL_LockSurface(surface);
-  for (int y=0; y<8; y++) {
-      Uint8* row = (Uint8*)surface->pixels + y * surface->pitch;
-      for (int x=0; x< 8;x++) {
-        int r = rand();
-        int g = rand();
-        int b = rand();
-        Uint32 color = SDL_MapSurfaceRGBA(surface,  0xff&r, 0xff&g, 0xff&b,  0xff);
-        Uint32* pixel = (Uint32*)(row + x * 4);
-        *pixel = color;
-      } 
-    } 
-  SDL_UnlockSurface(surface);
-  return surface;
+class TileSelection {
+  public:
+   TileContainer tiles;
+   std::vector<SDL_Texture*> tileTextures;
+  
+};
+
+static TileSelection possibleTiles;
+
+void renderTileSelection(SDL_Renderer* renderer, TileSelection& selection,SDL_FRect dimensions) {
+ int numberOfHorizontalTiles = dimensions.w / TileSize;
+ int numberOfVerticalTiles = dimensions.h / TileSize;
+ int tileIndex = 0;
+ SDL_FRect src_rect = {0,0,8,8};
+ SDL_SetRenderDrawColor(renderer, 0 ,  0,  0,  0);
+ SDL_RenderFillRect(renderer,&dimensions); 
+ for (size_t y = 0; y < numberOfVerticalTiles && tileIndex < selection.tiles.size() ; y++) {
+  for (size_t x = 0; x < numberOfHorizontalTiles && tileIndex < selection.tiles.size(); x++) {
+   
+    SDL_FRect position = {(float)(x*8 + dimensions.x),(float)(y*numberOfHorizontalTiles*8)+dimensions.y,8,8}; 
+    SDL_RenderTexture(renderer,selection.tileTextures[tileIndex],  &src_rect, &position); 
+    tileIndex++;
+  } 
+ }
+ SDL_SetRenderDrawColor(renderer,255,255,255,0);
+ SDL_RenderRect(renderer,&dimensions);
 }
 
 SDL_Surface* createTileFromBinaryData(Tile data,Palette palette) {
@@ -88,14 +100,13 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     }
     initializeMap(); 
     TileContainer container = loadTiles("build\\mouse.bin");
-    std::cout << "Loaded in container of size: " << container.size() << std::endl;
     Palettes palettes = loadPalettes("build\\mouse_palette.bin");
-    std::cout << "Loaded in palette of size: " << palettes.size() << std::endl;
     for(auto el : container) {
       auto sur = createTileFromBinaryData(el,palettes.front());
-      std::cout << "Created Surface!\n"; 
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
+      possibleTiles.tileTextures.push_back(map.tiles.back());
     }
+    possibleTiles.tiles = container;
     return SDL_APP_CONTINUE;
 }
 
@@ -108,7 +119,6 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
       else if(event->key.key == SDLK_LEFT) {
         if(currentTile > 0) 
         currentTile--; 
-        
       }
       else if(event->key.key == SDLK_RIGHT) {
         currentTile++;
@@ -116,10 +126,15 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
           currentTile = map.tiles.size()-1;
         }
       }
+      else if(event->key.key == SDLK_F1) {
+        cursorSettings.mode = Draw;
+      }
+      else if(event->key.key == SDLK_F2) {
+        cursorSettings.mode = Select;
+      }
     }
 
     if (event->type == SDL_EVENT_QUIT) {
-        
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
     }
     if(event->type == SDL_EVENT_MOUSE_MOTION) {
@@ -127,6 +142,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
     }
     if(event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
       mousedown = true;
+    }
+    if(event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+
+      mousedown = false;
     }
     return SDL_APP_CONTINUE;
 }
@@ -150,7 +169,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     static float rx,ry;
-    auto surface = createTile(8, 8); 
+    SDL_SetRenderScale(renderer,  4.0, 4.0); 
     SDL_FRect src_rect = {0,0,8,8};
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     int xSet = (((int)rx)/8) ;
@@ -163,9 +182,16 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderDebugText(renderer, 400.0f, 20.0f, xStr );
     SDL_RenderDebugText(renderer, 400.0f, 40.0f, yStr );
-    if(mousedown) {
-      map.data[xSet+ySet*100] = currentTile;
-      mousedown = false;
+    
+   if(mousedown ) {
+     switch(cursorSettings.mode) {
+        case Draw:
+        map.data[xSet+ySet*100] = currentTile;
+        break; 
+        case Select:
+        default:
+        break;     
+     }
     }
     xSet*=8;
     ySet*=8;
@@ -181,12 +207,12 @@ SDL_AppResult SDL_AppIterate(void *appstate)
         SDL_RenderTexture(renderer, map.tiles[currentPos],&src_rect , &dst_rect); 
         }
       }
-   }
+    }
     dst_rect.x = (float)xSet;
     dst_rect.y = (float)ySet;
+    renderTileSelection(renderer,possibleTiles,{(float)400,000,80,80});
     SDL_RenderTexture(renderer, map.tiles[currentTile],&src_rect , &dst_rect); 
     SDL_RenderPresent(renderer);
-    SDL_DestroySurface(surface);
     return SDL_APP_CONTINUE;
 }
 

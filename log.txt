@@ -25,3 +25,10 @@ Created Surface!
 Created Surface!
 Created Surface!
 Created Surface!
+test
+Loaded in container of size: 4
+Loaded in palette of size: 2
+Created Surface!
+Created Surface!
+Created Surface!
+Created Surface!

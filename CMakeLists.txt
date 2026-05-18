@@ -21,6 +21,7 @@ PUBLIC
     include 
   FILES 
     include/Tiledata.h
+    include/ControlStructure.h
   )
 
 # Link to the actual SDL3 library.
