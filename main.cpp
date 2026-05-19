@@ -54,7 +54,7 @@ void renderTileSelection(SDL_Renderer* renderer, TileSelection& selection,SDL_FR
  for (size_t y = 0; y < numberOfVerticalTiles && tileIndex < selection.tiles.size() ; y++) {
     
     for (size_t x = 0; x < numberOfHorizontalTiles && tileIndex < selection.tiles.size(); x++) {
-      SDL_FRect position = {(float)(x*TileSize + dimensions.x),(float)(y*numberOfHorizontalTiles*TileSize)+dimensions.y,TileSize,TileSize}; 
+      SDL_FRect position = {(float)(x*TileSize + dimensions.x),(float)(y*TileSize)+dimensions.y,TileSize,TileSize}; 
       SDL_RenderTexture(renderer,selection.tileTextures[tileIndex],  &src_rect, &position); 
       tileIndex++;
     }
@@ -64,6 +64,10 @@ void renderTileSelection(SDL_Renderer* renderer, TileSelection& selection,SDL_FR
  SDL_SetRenderDrawColor(renderer,255,255,255,0);
  SDL_RenderRect(renderer,&dimensions);
 }
+
+#define ExtractRed(val) (val&0b111)*36
+#define ExtractGreen(val) ((val&0b11100000)>>5)*36
+#define ExtractBlue(val) ((val&0b111000000000)>>9)*36
 
 SDL_Surface* createTileFromBinaryData(Tile data,Palette palette) {
        
@@ -77,13 +81,13 @@ SDL_Surface* createTileFromBinaryData(Tile data,Palette palette) {
       auto colorData1 =  palette[(byte&0xf0)>>4]; 
       auto colorData2 =  palette[(byte&0xf)]; 
       uint8_t red,green,blue; 
-      red =  (colorData1&0b1111)*36;
-      green =  ((colorData1&0b111100000)>>5)*36;
-      blue =  ((colorData1&0b1111000000000)>>9)*36;
+      red =  ExtractRed(colorData1);
+      green =  ExtractGreen(colorData1);
+      blue =  ExtractBlue(colorData1);
       uint32_t color1 = SDL_MapSurfaceRGBA(surface, red,green,blue,0xff);
-      red =  (colorData2&0b1111)*36;
-      green =  ((colorData2&0b111100000)>>5)*36;
-      blue =  ((colorData2&0b1111000000000)>>9)*36;
+      red =  ExtractRed(colorData2);
+      green =  ExtractGreen(colorData2);
+      blue =  ExtractBlue(colorData2);
        
       uint32_t color2 = SDL_MapSurfaceRGBA(surface, red, green,blue,0xff);
       Uint32* pixel1 = (Uint32*)(row + x*2*4);  
@@ -120,14 +124,19 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     TileContainer container = loadTiles("build\\CatWarTiles.bin");
 
     Palettes palettes = loadPalettes("build\\CatWarTiles_palette.bin");
+    for(auto entry : palettes) {
+      for(auto c : entry) {
+        std::cout << c << std::endl;
+       }
+    }
     for(auto el : container) {
       auto sur = createTileFromBinaryData(el,palettes.front());
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
       possibleTiles.tileTextures.push_back(map.tiles.back());
-
-      std::cout << "Created texture\n"; 
+    
     }
     possibleTiles.tiles = container;
+    std::cout << "Extracted: " << possibleTiles.tiles.size() << " Tiles\n";
     return SDL_APP_CONTINUE;
 }
 
@@ -266,7 +275,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     else {
       SDL_SetRenderDrawColor(renderer, 255 ,  255,  255,  0);
       SDL_RenderRect(renderer,&selectionRect);
-      renderTileSelection(renderer,possibleTiles,{(float)400,000,80,80}); 
+      renderTileSelection(renderer,possibleTiles,{(float)400,000,80,(float)screenHeight}); 
     } 
 
     SDL_RenderPresent(renderer);

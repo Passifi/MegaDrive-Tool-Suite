@@ -36,6 +36,10 @@ Palettes loadPalettes(std::string path) {
     while(true) {
       Palette currentPalette;
       file.read(reinterpret_cast<char*>(currentPalette.data()),PaletteSize*2);
+      for(int i = 0; i < currentPalette.size();i++) {
+        uint16_t value = currentPalette[i];
+        currentPalette[i] = ((value&0xff00)>>8) | ((value&0xff)<<8);
+      }
       if(file.gcount() == PaletteSize*2) {
         result.push_back(std::move(currentPalette));
       } 
