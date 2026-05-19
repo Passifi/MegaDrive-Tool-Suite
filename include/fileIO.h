@@ -19,7 +19,7 @@ const unsigned int TileSize = 32;
 
 using std::vector,std::array; 
 using Tile = std::array<uint8_t,TileSize>;
-using Palette = std::array<uint32_t,PaletteSize>;
+using Palette = std::array<uint16_t,PaletteSize>;
 using TileContainer = std::vector<Tile>;
 using Palettes = std::vector<Palette>;
 class Tiledata {
@@ -35,8 +35,8 @@ Palettes loadPalettes(std::string path) {
   if(file) {
     while(true) {
       Palette currentPalette;
-      file.read(reinterpret_cast<char*>(currentPalette.data()),PaletteSize);
-      if(file.gcount() == PaletteSize) {
+      file.read(reinterpret_cast<char*>(currentPalette.data()),PaletteSize*2);
+      if(file.gcount() == PaletteSize*2) {
         result.push_back(std::move(currentPalette));
       } 
       else {

@@ -76,8 +76,16 @@ SDL_Surface* createTileFromBinaryData(Tile data,Palette palette) {
       auto byte = (uint8_t)data[y*4+x]; 
       auto colorData1 =  palette[(byte&0xf0)>>4]; 
       auto colorData2 =  palette[(byte&0xf)]; 
-      uint32_t color1 = SDL_MapSurfaceRGBA(surface, ((colorData1&0b111000000)>>6)*36, ((colorData1&0b111000)>>3)*36,(colorData1&0b111)*36,0xff);
-      uint32_t color2 = SDL_MapSurfaceRGBA(surface, ((colorData2&0b111000000)>>6)*36, ((colorData2&0b111000)>>3)*36,(colorData2&0b111)*36,0xff);
+      uint8_t red,green,blue; 
+      red =  (colorData1&0b1111)*36;
+      green =  ((colorData1&0b111100000)>>5)*36;
+      blue =  ((colorData1&0b1111000000000)>>9)*36;
+      uint32_t color1 = SDL_MapSurfaceRGBA(surface, red,green,blue,0xff);
+      red =  (colorData2&0b1111)*36;
+      green =  ((colorData2&0b111100000)>>5)*36;
+      blue =  ((colorData2&0b1111000000000)>>9)*36;
+       
+      uint32_t color2 = SDL_MapSurfaceRGBA(surface, red, green,blue,0xff);
       Uint32* pixel1 = (Uint32*)(row + x*2*4);  
       Uint32* pixel2 = (Uint32*)(row + (x*2+1)*4);  
       *pixel1 = color1; 
@@ -102,17 +110,22 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     logFile.open("log.txt",std::ios::out | std::ios::app);
     auto* old_cout = std::cout.rdbuf(logFile.rdbuf());
     auto* old_clog = std::clog.rdbuf(logFile.rdbuf());
+
     if (!SDL_CreateWindowAndRenderer("Hello World", screenWidth, screenHeight, SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
         SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
     initializeMap(); 
-    TileContainer container = loadTiles("build\\mouse.bin");
-    Palettes palettes = loadPalettes("build\\mouse_palette.bin");
+    
+    TileContainer container = loadTiles("build\\CatWarTiles.bin");
+
+    Palettes palettes = loadPalettes("build\\CatWarTiles_palette.bin");
     for(auto el : container) {
       auto sur = createTileFromBinaryData(el,palettes.front());
       map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
       possibleTiles.tileTextures.push_back(map.tiles.back());
+
+      std::cout << "Created texture\n"; 
     }
     possibleTiles.tiles = container;
     return SDL_APP_CONTINUE;
