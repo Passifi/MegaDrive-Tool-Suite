@@ -8,6 +8,7 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_surface.h"
+#include <cassert>
 #include <cstdlib>
 #include <stdio.h>
 #include <queue> 
@@ -115,32 +116,32 @@ void initializeMap() {
 }
 
 void fill(int startPosition) {
+  assert(startPosition >= 0 && startPosition < map.data.size());
   std::queue<int> to_visit;
   std::set<int> visited;
   to_visit.push(startPosition);
-  while(to_visit.size() > 0) {
+  visited.insert(startPosition);
+  int originalTile = map.data[startPosition];
+  auto add = [&](int element) {
+    if(
+                 (element >= 0 )
+        && (element < map.data.size()) && 
+      (map.data[element] == originalTile)
+
+        && (visited.count(element) == 0)) 
+    {
+      to_visit.push(element);
+      visited.insert(element);
+    }
+  };
+  while(!to_visit.empty() ) {
   int currentPosition = to_visit.front(); 
     to_visit.pop();
-    visited.insert(currentPosition);
     map.data[currentPosition] = currentTile;
-  if(currentPosition+1 < map.data.size() && visited.count(currentPosition+1) == 0)  {
-    to_visit.push(currentPosition+1);
-
-    visited.insert(currentPosition+1);
-  }
-  if(currentPosition-1 >= 0 && visited.count(currentPosition-1) == 0)  {
-    to_visit.push(currentPosition-1);
-    visited.insert(currentPosition-1);
-  }
-   if(currentPosition+horizontalTiles < map.data.size() && visited.count(currentPosition+horizontalTiles) == 0)  {
-    to_visit.push(currentPosition+horizontalTiles);
-    visited.insert(currentPosition+horizontalTiles);
-  }
-   if(currentPosition-horizontalTiles >= 0 && visited.count(currentPosition-horizontalTiles) == 0)  {
-    to_visit.push(currentPosition-horizontalTiles);
-    visited.insert(currentPosition-horizontalTiles);
-  }
-
+    add(currentPosition+1);
+    add(currentPosition-1);
+    add(currentPosition+horizontalTiles);
+    add(currentPosition-horizontalTiles);
   }
   
   
@@ -198,7 +199,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
         }
       }
       else if(event->key.key == SDLK_F) {
-        fill(23);
+        int xPos,yPos;
+        xPos = selectionRect.x/8;
+        yPos = selectionRect.y/8;
+        fill(xPos + yPos*horizontalTiles);
       }
       else if(event->key.key == SDLK_F1) {
         cursorSettings.mode = Draw;
