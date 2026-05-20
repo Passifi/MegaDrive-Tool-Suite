@@ -134,3 +134,143 @@ Extracted: 1024 Tiles
 578
 0
 Extracted: 1024 Tiles
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Extracted: 1024 Tiles
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Extracted: 1024 Tiles
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Extracted: 1024 Tiles
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Extracted: 1024 Tiles
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202
+Insufficient palette data
+0
+545
+1089
+610
+578
+1090
+1635
+675
+2148
+609
+65
+1702
+612
+1189
+578
+3202

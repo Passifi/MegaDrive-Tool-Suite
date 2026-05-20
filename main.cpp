@@ -34,6 +34,9 @@ static CursorSettings cursorSettings;
 static bool mousedown = false;
 static SDL_FRect selectionRect = {0,0,8,8};
 static std::ofstream logFile;
+static bool isOverTileSelection = false;
+
+SDL_FRect tileSelectionRect = {(float)400,000,80,(float)screenHeight};
 /* This function runs once at startup. */
 class TileSelection {
   public:
@@ -111,6 +114,10 @@ void initializeMap() {
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
+  std::string filePath = "build\\catwartilesreduced.bin";
+    if(argc > 1) {
+      filePath = argv[1];
+    }
     logFile.open("log.txt",std::ios::out | std::ios::app);
     auto* old_cout = std::cout.rdbuf(logFile.rdbuf());
     auto* old_clog = std::clog.rdbuf(logFile.rdbuf());
@@ -121,9 +128,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     }
     initializeMap(); 
     
-    TileContainer container = loadTiles("build\\CatWarTiles.bin");
+    TileContainer container = loadTiles(filePath);
 
-    Palettes palettes = loadPalettes("build\\CatWarTiles_palette.bin");
+    Palettes palettes = loadPalettes("build\\catwartilesreduced_palette.bin");
     for(auto entry : palettes) {
       for(auto c : entry) {
         std::cout << c << std::endl;
@@ -136,7 +143,6 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     
     }
     possibleTiles.tiles = container;
-    std::cout << "Extracted: " << possibleTiles.tiles.size() << " Tiles\n";
     return SDL_APP_CONTINUE;
 }
 
@@ -188,14 +194,54 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
     }
     return SDL_APP_CONTINUE;
 }
-void renderInfo(SDL_Renderer* renderer) {
+void renderInfo(SDL_Renderer* renderer,int x, int y) {
   // actually want a struct or some data structure that contains all relevant info in the form of 
   // name as string, and value as pairs  
     int selectedTileNumber = 0;
-    std::string xStr = std::to_string(selectedTileNumber);
+    std::string xStr = std::to_string(x);
+    std::string yStr = std::to_string(y);
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDebugText(renderer, 400.0f, 20.0f, xStr.data() );
+    SDL_RenderDebugText(renderer, 10.0f, 20.0f, xStr.data() );
+    SDL_RenderDebugText(renderer, 10.0f, 40.0f, yStr.data() );
+}
+
+void checkSelection(float rx,float ry) {
+          isOverTileSelection =
+            rx > tileSelectionRect.x 
+            && rx < tileSelectionRect.x + tileSelectionRect.w 
+            && ry > tileSelectionRect.y 
+            && ry < tileSelectionRect.y + tileSelectionRect.h;
+          if(isOverTileSelection) {
+            auto selectionHorizontalTiles = tileSelectionRect.w/ TileSize; 
+            auto xOffset = rx - tileSelectionRect.x;
+            auto yOffset = ry - tileSelectionRect.y;
+            int xValue = xOffset/8;
+            int yValue = yOffset/8;
+            currentTile = xValue + yValue * selectionHorizontalTiles;
+            cursorSettings.mode = Draw;
+            mousedown = false;
+            return;
+          }   
+          
+          if(selectionRect.x + selectionRect.w < rx) 
+          {
+            selectionRect.w += 8;
+          } 
+          else if(selectionRect.x + selectionRect.w - 8 > rx) {
+            if(selectionRect.w > 8) {
+              selectionRect.w -= 8;
+            }
+          }
+          else if(selectionRect.y + selectionRect.h < ry) {
+            selectionRect.h += 8;
+          }
+          else if(selectionRect.y + selectionRect.h - 8 > ry ) {
+            if(selectionRect.h > 8) {
+              selectionRect.h -= 8;
+            }
+          }
+ 
 }
 
 SDL_FRect processInputs(float rx,float ry) {
@@ -211,22 +257,9 @@ SDL_FRect processInputs(float rx,float ry) {
         map.data[xSet+ySet*horizontalTiles] = currentTile;
         break; 
         case Select:
-          if(selectionRect.x + selectionRect.w < rx) 
-          {
-            selectionRect.w += 8;
-          }else if(selectionRect.x + selectionRect.w - 8 > rx) {
-            if(selectionRect.w > 8) 
-            selectionRect.w -= 8;
-          }
-          else if(selectionRect.y + selectionRect.h < ry) {
-            selectionRect.h += 8;
-          }
-          else if(selectionRect.y + selectionRect.h - 8 > ry ) {
-            if(selectionRect.h > 8) {
-              selectionRect.h -= 8;
-            }
-          }
-        default:
+          checkSelection(rx, ry);
+          break;
+       default:
         break;     
      }
     }
@@ -268,16 +301,18 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     auto org_dest = processInputs(rx,ry);
     auto dst_rect = org_dest;
+
     renderTiles(renderer); 
     if(cursorSettings.mode == Draw) {
       SDL_RenderTexture(renderer, map.tiles[currentTile],&src_rect , &org_dest); 
     }
     else {
+
       SDL_SetRenderDrawColor(renderer, 255 ,  255,  255,  0);
       SDL_RenderRect(renderer,&selectionRect);
-      renderTileSelection(renderer,possibleTiles,{(float)400,000,80,(float)screenHeight}); 
+      renderTileSelection(renderer,possibleTiles,tileSelectionRect); 
     } 
-
+    renderInfo(renderer,rx,ry);
     SDL_RenderPresent(renderer);
     return SDL_APP_CONTINUE;
 }
