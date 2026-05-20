@@ -24,6 +24,13 @@
 #define TileSize 8
 #define NO_TILE -1
 
+struct MouseState {
+  bool mouseDown = false;
+  bool dragging = false;
+  SDL_FPoint startPosition;
+};
+
+MouseState mouseState;
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static float mouseX,mouseY = 4.0;
@@ -221,17 +228,25 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
       if(!mousedown) {
         SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
       }
+      else {
+        mouseState.dragging = true;
+      }
 
     }
     if(event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
       mousedown = true;
+      mouseState.mouseDown = true;
       SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
+      mouseState.startPosition = {rx,ry};
       selectionRect.x = rx;
       selectionRect.y = ry;
 
     }
     if(event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
       mousedown = false;
+
+      mouseState.mouseDown = false;
+      mouseState.dragging = false;
     }
     return SDL_APP_CONTINUE;
 }
@@ -292,7 +307,7 @@ SDL_FRect processInputs(float rx,float ry) {
     float ySet = static_cast<float>(alignedY);
     
     SDL_FRect result = {xSet,ySet,8,8};
-    if(mousedown) {
+    if(mouseState.mouseDown) {
      switch(cursorSettings.mode) {
         case Draw:
         map.data[xSet+ySet*horizontalTiles] = currentTile;
