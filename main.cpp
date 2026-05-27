@@ -154,7 +154,7 @@ void fill(int startPosition) {
 }
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
-  std::string filePath = "build\\catwartilesreduced.bin";
+  std::string filePath = "build/catwartilesreduced.bin";
   if (argc > 1) {
     filePath = argv[1];
   }
@@ -175,7 +175,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
 
   TileContainer container = loadTiles(filePath);
 
-  Palettes palettes = loadPalettes("build\\catwartilesreduced_palette.bin");
+  Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
   for (auto entry : palettes) {
     for (auto c : entry) {
       std::cout << c << std::endl;
