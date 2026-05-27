@@ -1,82 +1,81 @@
-#include <exception>
 #include <array>
-#include <fstream> 
-#include <iostream> 
-#include <string>
-#include <vector> 
 #include <cstdint>
+#include <exception>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 struct TilemapHeader {
   int numberofTiles;
   int tilemapSize;
-  int noOfPalettes; 
+  int noOfPalettes;
   int verticalMapSize;
   int horizontalMapSize;
 };
 const unsigned int PaletteSize = 16;
 const unsigned int TileSize = 32;
-// PaletteSize * numberOfPalettes => start of tileData, tileSize * numberOfTiles => startof tilemap  
+// PaletteSize * numberOfPalettes => start of tileData, tileSize * numberOfTiles
+// => startof tilemap
 
-using std::vector,std::array; 
-using Tile = std::array<uint8_t,TileSize>;
-using Palette = std::array<uint16_t,PaletteSize>;
+using std::vector, std::array;
+using Tile = std::array<uint8_t, TileSize>;
+using Palette = std::array<uint16_t, PaletteSize>;
 using TileContainer = std::vector<Tile>;
 using Palettes = std::vector<Palette>;
 class Tiledata {
-  public:
-   std::vector<vector<uint16_t>> palettes; 
-  TileContainer tiles; 
+public:
+  std::vector<vector<uint16_t>> palettes;
+  TileContainer tiles;
 };
 
 Palettes loadPalettes(std::string path) {
   std::ifstream file;
-  file.open(path,std::ios::binary | std::ios::in);
+  file.open(path, std::ios::binary | std::ios::in);
   Palettes result;
-  if(file) {
-    while(true) {
+  if (file) {
+    while (true) {
       Palette currentPalette;
-      file.read(reinterpret_cast<char*>(currentPalette.data()),PaletteSize*2);
-      for(int i = 0; i < currentPalette.size();i++) {
+      file.read(reinterpret_cast<char *>(currentPalette.data()),
+                PaletteSize * 2);
+      for (int i = 0; i < currentPalette.size(); i++) {
         uint16_t value = currentPalette[i];
-        currentPalette[i] = ((value&0xff00)>>8) | ((value&0xff)<<8);
+        currentPalette[i] = ((value & 0xff00) >> 8) | ((value & 0xff) << 8);
       }
-      if(file.gcount() == PaletteSize*2) {
+      if (file.gcount() == PaletteSize * 2) {
         result.push_back(std::move(currentPalette));
-      } 
-      else {
-        if(file.gcount() != 0) {
+      } else {
+        if (file.gcount() != 0) {
           std::cout << "Insufficient palette data\n";
         }
         break;
       }
     }
-  }
-  else {
+  } else {
     std::cout << "Couldn't open file\n";
   }
   return result;
 }
 
 TileContainer loadTiles(std::string path) {
-  std::ifstream file; 
+  std::ifstream file;
   TileContainer data;
-  file.open(path,std::ios::binary | std::ios::in);
-  if(file.is_open()) {
-    while(true) {
-      char current; 
+  file.open(path, std::ios::binary | std::ios::in);
+  if (file.is_open()) {
+    while (true) {
+      char current;
       Tile tile;
-      file.read(reinterpret_cast<char*>(tile.data()),32);
-      if(file.gcount() == TileSize) {
-        data.push_back(std::move(tile)); 
+      file.read(reinterpret_cast<char *>(tile.data()), 32);
+      if (file.gcount() == TileSize) {
+        data.push_back(std::move(tile));
       } else {
-        if(file.gcount() != 0) {
+        if (file.gcount() != 0) {
           std::cout << "Incomplete tile at the end of the file\n";
         }
         break;
       }
     }
-  }
-  else {
+  } else {
     std::cout << "Couldn't open file\n";
   }
   return data;
