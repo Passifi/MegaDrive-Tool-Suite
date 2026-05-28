@@ -204,10 +204,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
         currentTile = map.tiles.size() - 1;
       }
     } else if (event->key.key == SDLK_F) {
-      int xPos, yPos;
-      xPos = selectionRect.x / 8;
-      yPos = selectionRect.y / 8;
-      fill(xPos + yPos * horizontalTiles);
+        cursorSettings.mode = Fill; 
+      
     } else if (event->key.key == SDLK_F1) {
       cursorSettings.mode = Draw;
     } else if (event->key.key == SDLK_F2) {
@@ -301,6 +299,11 @@ SDL_FRect processInputs(float rx, float ry) {
     case Select:
       checkSelection(rx, ry);
       break;
+    case Fill:
+      int xPos, yPos;
+      xPos = selectionRect.x / 8;
+      yPos = selectionRect.y / 8;
+      fill(xPos + yPos * horizontalTiles);
     default:
       break;
     }
@@ -344,13 +347,15 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   auto dst_rect = org_dest;
 
   renderTiles(renderer);
-  if (cursorSettings.mode == Draw) {
-    SDL_RenderTexture(renderer, map.tiles[currentTile], &src_rect, &org_dest);
-  } else {
-
+  switch(cursorSettings.mode) {
+    case Draw:
+      SDL_RenderTexture(renderer, map.tiles[currentTile], &src_rect, &org_dest);
+      break;
+    default:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
+ 
   }
   renderInfo(renderer, rx, ry);
   SDL_RenderPresent(renderer);
