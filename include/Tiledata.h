@@ -4,6 +4,21 @@
 
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
+#include "fileIO.h"
+#define NO_TILE -1
+const int Flip_Horizontally = 0x0800;
+const int Flip_Vertically = 0x1000;
+const int PAL0 = 0x0000;
+const int PAL1 = 0x2000;
+const int PAL2 = 0x4000;
+const int PAL3 = 0x6000;
+const int Low_Priority = 0x0000 ;
+const int High_Priority = 0x8000 ;
+
+#define ExtractRed(val) (val & 0b111) * 36
+#define ExtractGreen(val) ((val & 0b11100000) >> 5) * 36
+#define ExtractBlue(val) ((val & 0b111000000000) >> 9) * 36
+#define SetPalette(val,palette) (val & 0x0fff) | palette
 class Tilemap {
   public: 
     Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height) {
@@ -15,4 +30,5 @@ class Tilemap {
   private:
   };
 
-
+SDL_Surface *createTileFromBinaryData(Tile data, Palette palette);
+Tilemap* initializeMap(size_t width, size_t height);

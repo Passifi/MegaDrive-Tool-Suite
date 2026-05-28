@@ -1,8 +1,8 @@
-C:/code/MegadriveTools/build/CMakeFiles/megaTile.dir
-C:/code/MegadriveTools/build/CMakeFiles/edit_cache.dir
-C:/code/MegadriveTools/build/CMakeFiles/rebuild_cache.dir
-C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir
-C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3_test.dir
-C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL_uclibc.dir
-C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/edit_cache.dir
-C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/rebuild_cache.dir
+C:/Code/MegadriveTools/build/CMakeFiles/megaTile.dir
+C:/Code/MegadriveTools/build/CMakeFiles/edit_cache.dir
+C:/Code/MegadriveTools/build/CMakeFiles/rebuild_cache.dir
+C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir
+C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3_test.dir
+C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL_uclibc.dir
+C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/edit_cache.dir
+C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/rebuild_cache.dir

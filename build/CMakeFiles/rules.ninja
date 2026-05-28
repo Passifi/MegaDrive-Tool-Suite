@@ -121,7 +121,7 @@ rule C_STATIC_LIBRARY_LINKER__SDL_uclibc_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\msys64\ucrt64\bin\cmake.exe --regenerate-during-build -SC:\Code\MegadriveTools -BC:\code\MegadriveTools\build
+  command = C:\msys64\ucrt64\bin\cmake.exe --regenerate-during-build -SC:\Code\MegadriveTools -BC:\Code\MegadriveTools\build
   description = Re-running CMake...
   generator = 1
 
@@ -130,7 +130,7 @@ rule RERUN_CMAKE
 # Rule for re-checking globbed directories.
 
 rule VERIFY_GLOBS
-  command = C:\msys64\ucrt64\bin\cmake.exe -P C:\code\MegadriveTools\build\CMakeFiles\VerifyGlobs.cmake
+  command = C:\msys64\ucrt64\bin\cmake.exe -P C:\Code\MegadriveTools\build\CMakeFiles\VerifyGlobs.cmake
   description = Re-checking globbed directories...
   generator = 1
 

@@ -18,18 +18,16 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include "include/ControlStructure.h"
 #include "include/Tiledata.h"
-#include "include/fileIO.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #define TileSize 8
-#define NO_TILE -1
 
 struct MouseState {
   bool mouseDown = false;
   bool dragging = false;
   SDL_FPoint startPosition;
 };
-
+int ControlState = 0;
 MouseState mouseState;
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -84,48 +82,6 @@ void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
   SDL_RenderRect(renderer, &dimensions);
 }
 
-#define ExtractRed(val) (val & 0b111) * 36
-#define ExtractGreen(val) ((val & 0b11100000) >> 5) * 36
-#define ExtractBlue(val) ((val & 0b111000000000) >> 9) * 36
-
-SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
-
-  auto surface = SDL_CreateSurface(8, 8, SDL_PIXELFORMAT_RGBA8888);
-  for (int y = 0; y < 8; y++) {
-
-    Uint8 *row = (Uint8 *)surface->pixels + y * surface->pitch;
-
-    for (int x = 0; x < 4; x++) {
-      auto byte = (uint8_t)data[y * 4 + x];
-      auto colorData1 = palette[(byte & 0xf0) >> 4];
-      auto colorData2 = palette[(byte & 0xf)];
-      uint8_t red, green, blue;
-      red = ExtractRed(colorData1);
-      green = ExtractGreen(colorData1);
-      blue = ExtractBlue(colorData1);
-      uint32_t color1 = SDL_MapSurfaceRGBA(surface, red, green, blue, 0xff);
-      red = ExtractRed(colorData2);
-      green = ExtractGreen(colorData2);
-      blue = ExtractBlue(colorData2);
-
-      uint32_t color2 = SDL_MapSurfaceRGBA(surface, red, green, blue, 0xff);
-      Uint32 *pixel1 = (Uint32 *)(row + x * 2 * 4);
-      Uint32 *pixel2 = (Uint32 *)(row + (x * 2 + 1) * 4);
-      *pixel1 = color1;
-      *pixel2 = color2;
-    }
-  }
-
-  return surface;
-}
-
-void initializeMap() {
-
-  for (int i = 0; i < map.size; i++) {
-    map.data[i] = NO_TILE;
-  }
-}
-
 void fill(int startPosition) {
   assert(startPosition >= 0 && startPosition < map.data.size());
   std::queue<int> to_visit;
@@ -171,7 +127,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
-  initializeMap();
+  map = *initializeMap(screenWidth,screenHeight);
 
   TileContainer container = loadTiles(filePath);
 
@@ -211,6 +167,12 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     } else if (event->key.key == SDLK_F2) {
       cursorSettings.mode = Select;
     }
+    else if (event->key.key == SDLK_X) {
+      ControlState ^= Flip_Horizontally;
+    }
+    else if (event->key.key == SDLK_Y) {
+      ControlState ^= Flip_Vertically;
+    }
   }
 
   if (event->type == SDL_EVENT_QUIT) {
@@ -241,8 +203,6 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   return SDL_APP_CONTINUE;
 }
 void renderInfo(SDL_Renderer *renderer, int x, int y) {
-  // actually want a struct or some data structure that contains all relevant
-  // info in the form of name as string, and value as pairs
   int selectedTileNumber = 0;
   std::string xStr = std::to_string(x);
   std::string yStr = std::to_string(y);
@@ -294,7 +254,7 @@ SDL_FRect processInputs(float rx, float ry) {
   if (mouseState.mouseDown) {
     switch (cursorSettings.mode) {
     case Draw:
-      map.data[xSet + ySet * horizontalTiles] = currentTile;
+      map.data[xSet + ySet * horizontalTiles] = (currentTile|ControlState);
       break;
     case Select:
       checkSelection(rx, ry);
@@ -314,22 +274,35 @@ SDL_FRect processInputs(float rx, float ry) {
 }
 
 void renderTiles(SDL_Renderer *renderer) {
+  try {
   static SDL_FRect src_rect = {0, 0, TileSize, TileSize};
   SDL_FRect dst_rect = {0, 0, TileSize, TileSize};
   for (int y = 0; y < verticalTiles; y++) {
-
-    dst_rect.y = y;
-
     for (int x = 0; x < horizontalTiles; x++) {
-
       auto currentPos = map.data[x + y * horizontalTiles];
       if (currentPos != NO_TILE) {
         dst_rect.x = x * TileSize;
         dst_rect.y = y * TileSize;
-        SDL_RenderTexture(renderer, map.tiles[currentPos], &src_rect,
-                          &dst_rect);
+        int flipped = currentPos&0x18;
+        SDL_FlipMode flip = SDL_FLIP_NONE;
+        if(currentPos&Flip_Horizontally)
+        {
+          flip = (SDL_FlipMode)(SDL_FLIP_HORIZONTAL|flip);
+        }
+        if(currentPos&Flip_Vertically) {
+          flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
+        }
+        int tileIndex = currentPos&0x000003ff;
+        std::cout <<"TileIndex:" << std::endl;
+        std::cout << tileIndex << std::endl;
+        SDL_RenderTextureRotated(renderer, map.tiles[tileIndex], &src_rect,
+                          &dst_rect,0.0,nullptr,flip);
       }
     }
+  }
+  }
+  catch(const std::exception& ex) {
+    std::cout << "Something went wrong in render Tiles" << std::endl;
   }
 }
 SDL_AppResult SDL_AppIterate(void *appstate) {
@@ -348,14 +321,21 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 
   renderTiles(renderer);
   switch(cursorSettings.mode) {
-    case Draw:
-      SDL_RenderTexture(renderer, map.tiles[currentTile], &src_rect, &org_dest);
+    case Draw: {
+      SDL_FlipMode flip = SDL_FLIP_NONE;
+      if(ControlState&Flip_Horizontally) {
+        flip = SDL_FLIP_HORIZONTAL;
+      }
+      if(ControlState&Flip_Vertically) {
+        flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
+      }
+      SDL_RenderTextureRotated(renderer, map.tiles[currentTile], &src_rect, &org_dest,0.0,nullptr,flip);
       break;
+               }
     default:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
- 
   }
   renderInfo(renderer, rx, ry);
   SDL_RenderPresent(renderer);

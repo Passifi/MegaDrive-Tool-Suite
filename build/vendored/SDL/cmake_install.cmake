@@ -40,6 +40,6 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/code/MegadriveTools/build/vendored/SDL/install_local_manifest.txt"
+  file(WRITE "C:/Code/MegadriveTools/build/vendored/SDL/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

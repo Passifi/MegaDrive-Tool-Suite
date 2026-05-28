@@ -17,29 +17,29 @@
 
 set(HEAD_HASH)
 
-file(READ "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
+file(READ "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
 if(HEAD_CONTENTS MATCHES "ref")
 	# named branch
 	string(REPLACE "ref: " "" HEAD_REF "${HEAD_CONTENTS}")
 	if(EXISTS "C:/Code/MegadriveTools/vendored/SDL/.git/${HEAD_REF}")
-		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/${HEAD_REF}" "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" COPYONLY)
+		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/${HEAD_REF}" "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" COPYONLY)
 	elseif(EXISTS "C:/Code/MegadriveTools/vendored/SDL/.git/packed-refs")
-		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/packed-refs" "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/packed-refs" COPYONLY)
-		file(READ "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/packed-refs" PACKED_REFS)
+		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/packed-refs" "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/packed-refs" COPYONLY)
+		file(READ "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/packed-refs" PACKED_REFS)
 		if(${PACKED_REFS} MATCHES "([0-9a-z]*) ${HEAD_REF}")
 			set(HEAD_HASH "${CMAKE_MATCH_1}")
 		endif()
 	elseif(EXISTS "C:/Code/MegadriveTools/vendored/SDL/.git/reftable/tables.list")
-		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/reftable/tables.list" "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/reftable-tables.list" COPYONLY)
+		configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/reftable/tables.list" "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/reftable-tables.list" COPYONLY)
 	endif()
 else()
 	# detached HEAD
-	configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/HEAD" "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" COPYONLY)
+	configure_file("C:/Code/MegadriveTools/vendored/SDL/.git/HEAD" "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" COPYONLY)
 endif()
 
-if(NOT HEAD_HASH AND EXISTS "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref")
-	file(READ "C:/code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" HEAD_HASH LIMIT 1024)
+if(NOT HEAD_HASH AND EXISTS "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref")
+	file(READ "C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/git-data/head-ref" HEAD_HASH LIMIT 1024)
 	string(STRIP "${HEAD_HASH}" HEAD_HASH)
 endif()

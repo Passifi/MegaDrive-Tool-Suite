@@ -62,8 +62,8 @@ set_target_properties(SDL3::SDL3-shared PROPERTIES
 # Import target "SDL3::SDL3-shared" for configuration ""
 set_property(TARGET SDL3::SDL3-shared APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(SDL3::SDL3-shared PROPERTIES
-  IMPORTED_IMPLIB_NOCONFIG "C:/code/MegadriveTools/build/vendored/SDL/libSDL3.dll.a"
-  IMPORTED_LOCATION_NOCONFIG "C:/code/MegadriveTools/build/SDL3.dll"
+  IMPORTED_IMPLIB_NOCONFIG "C:/Code/MegadriveTools/build/vendored/SDL/libSDL3.dll.a"
+  IMPORTED_LOCATION_NOCONFIG "C:/Code/MegadriveTools/build/SDL3.dll"
   )
 
 # Make sure the targets which have been exported in some other

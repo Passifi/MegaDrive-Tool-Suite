@@ -17,7 +17,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -36,7 +36,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -47,7 +47,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -56,7 +56,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -73,7 +73,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -89,7 +89,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -99,7 +99,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -109,7 +109,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -119,7 +119,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -129,7 +129,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -139,7 +139,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -149,7 +149,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -159,7 +159,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -169,7 +169,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -179,7 +179,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -190,7 +190,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -200,7 +200,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -209,7 +209,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -219,7 +219,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -229,7 +229,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -239,7 +239,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -254,7 +254,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -265,7 +265,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -281,7 +281,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # shared_sources at vendored/SDL/cmake/sdlcommands.cmake:23 (file)
@@ -291,7 +291,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -301,7 +301,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -311,7 +311,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -321,7 +321,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -334,7 +334,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -360,7 +360,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -391,7 +391,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -401,7 +401,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -412,7 +412,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -423,7 +423,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -433,7 +433,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -443,7 +443,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -453,7 +453,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -463,7 +463,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -473,7 +473,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -483,7 +483,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -494,7 +494,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -507,7 +507,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -517,7 +517,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -528,7 +528,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -539,7 +539,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -550,7 +550,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -561,7 +561,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -571,7 +571,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -589,7 +589,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -600,7 +600,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -612,7 +612,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -622,7 +622,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -631,7 +631,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -641,7 +641,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -654,7 +654,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -671,7 +671,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -708,7 +708,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -718,7 +718,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -728,7 +728,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -742,7 +742,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -755,7 +755,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -765,7 +765,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -775,7 +775,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -785,7 +785,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -795,7 +795,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -806,7 +806,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -816,7 +816,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -826,7 +826,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -835,7 +835,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -845,7 +845,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -856,7 +856,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -867,7 +867,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -877,7 +877,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -887,7 +887,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -897,7 +897,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -907,7 +907,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -916,7 +916,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -928,7 +928,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -941,7 +941,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -978,7 +978,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1039,7 +1039,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1049,7 +1049,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1060,7 +1060,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1070,7 +1070,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1080,7 +1080,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1104,7 +1104,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1117,7 +1117,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1127,7 +1127,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1137,7 +1137,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1147,7 +1147,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1157,7 +1157,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1167,7 +1167,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1177,7 +1177,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1188,7 +1188,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1198,7 +1198,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1208,7 +1208,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1218,7 +1218,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1228,7 +1228,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1238,7 +1238,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1248,7 +1248,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1258,7 +1258,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1268,7 +1268,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1300,7 +1300,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1329,7 +1329,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1341,7 +1341,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1353,7 +1353,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1368,7 +1368,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1383,7 +1383,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1406,7 +1406,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1416,7 +1416,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1442,7 +1442,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1454,7 +1454,7 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
@@ -1472,5 +1472,5 @@ set(OLD_GLOB
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "C:/code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
 endif()

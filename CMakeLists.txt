@@ -15,10 +15,12 @@ add_executable(megaTile WIN32 main.cpp)
 target_sources(megaTile
 PRIVATE
   Tiledata.cpp   
+  source/Tiledata.cpp
+  source/fileIO.cpp
 PUBLIC
   FILE_SET HEADERS
   BASE_DIRS 
-    include 
+    include
   FILES 
     include/Tiledata.h
     include/ControlStructure.h
