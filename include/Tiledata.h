@@ -4,6 +4,7 @@
 
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
+#include <memory>
 #include "fileIO.h"
 #define NO_TILE -1
 const int Flip_Horizontally = 0x0800;
@@ -23,6 +24,8 @@ class Tilemap {
   public: 
     Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height) {
     
+    }
+    ~Tilemap() {
     }
   size_t width,height,size;
   std::vector<int> data;

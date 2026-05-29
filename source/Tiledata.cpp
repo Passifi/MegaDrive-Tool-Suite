@@ -1,5 +1,5 @@
 #include "../include/Tiledata.h"
-static Tilemap* mainMap = nullptr;
+static std::unique_ptr<Tilemap>  mainMap = nullptr;
 SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
 
   auto surface = SDL_CreateSurface(8, 8, SDL_PIXELFORMAT_RGBA8888);
@@ -32,15 +32,12 @@ SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
 }
 
 Tilemap* initializeMap(size_t width, size_t height) {
-  if(mainMap != nullptr) 
-  {
-    delete mainMap;
-  }
-  mainMap = new Tilemap(width,height);
+
+  mainMap = std::make_unique<Tilemap>(width,height);
   for (int i = 0; i < mainMap->size; i++) {
     mainMap->data[i] = NO_TILE;
   }
-  return mainMap;
+  return mainMap.get();
 }
 
 

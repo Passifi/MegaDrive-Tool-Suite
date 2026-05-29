@@ -37,7 +37,7 @@ static int screenWidth = 800;
 static int screenHeight = 600;
 static int horizontalTiles = screenWidth / TileSize;
 static int verticalTiles = screenHeight / TileSize;
-static Tilemap map(horizontalTiles, verticalTiles);
+static Tilemap* map=nullptr;
 static CursorSettings cursorSettings;
 static bool mousedown = false;
 static SDL_FRect selectionRect = {0, 0, 8, 8};
@@ -83,15 +83,15 @@ void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
 }
 
 void fill(int startPosition) {
-  assert(startPosition >= 0 && startPosition < map.data.size());
+  assert(startPosition >= 0 && startPosition < map->data.size());
   std::queue<int> to_visit;
   std::set<int> visited;
   to_visit.push(startPosition);
   visited.insert(startPosition);
-  int originalTile = map.data[startPosition];
+  int originalTile = map->data[startPosition];
   auto add = [&](int element) {
-    if ((element >= 0) && (element < map.data.size()) &&
-        (map.data[element] == originalTile)
+    if ((element >= 0) && (element < map->data.size()) &&
+        (map->data[element] == originalTile)
 
         && (visited.count(element) == 0)) {
       to_visit.push(element);
@@ -101,7 +101,7 @@ void fill(int startPosition) {
   while (!to_visit.empty()) {
     int currentPosition = to_visit.front();
     to_visit.pop();
-    map.data[currentPosition] = currentTile;
+    map->data[currentPosition] = currentTile;
     add(currentPosition + 1);
     add(currentPosition - 1);
     add(currentPosition + horizontalTiles);
@@ -127,7 +127,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
-  map = *initializeMap(screenWidth,screenHeight);
+  map =  initializeMap(screenWidth,screenHeight);
 
   TileContainer container = loadTiles(filePath);
 
@@ -139,8 +139,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   }
   for (auto el : container) {
     auto sur = createTileFromBinaryData(el, palettes.front());
-    map.tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
-    possibleTiles.tileTextures.push_back(map.tiles.back());
+    map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
+    possibleTiles.tileTextures.push_back(map->tiles.back());
   }
   possibleTiles.tiles = container;
   return SDL_APP_CONTINUE;
@@ -156,8 +156,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
         currentTile--;
     } else if (event->key.key == SDLK_RIGHT) {
       currentTile++;
-      if (currentTile >= map.tiles.size()) {
-        currentTile = map.tiles.size() - 1;
+      if (currentTile >= map->tiles.size()) {
+        currentTile = map->tiles.size() - 1;
       }
     } else if (event->key.key == SDLK_F) {
         cursorSettings.mode = Fill; 
@@ -254,7 +254,7 @@ SDL_FRect processInputs(float rx, float ry) {
   if (mouseState.mouseDown) {
     switch (cursorSettings.mode) {
     case Draw:
-      map.data[xSet + ySet * horizontalTiles] = (currentTile|ControlState);
+      map->data[xSet + ySet * horizontalTiles] = (currentTile|ControlState);
       break;
     case Select:
       checkSelection(rx, ry);
@@ -279,7 +279,7 @@ void renderTiles(SDL_Renderer *renderer) {
   SDL_FRect dst_rect = {0, 0, TileSize, TileSize};
   for (int y = 0; y < verticalTiles; y++) {
     for (int x = 0; x < horizontalTiles; x++) {
-      auto currentPos = map.data[x + y * horizontalTiles];
+      auto currentPos = map->data[x + y * horizontalTiles];
       if (currentPos != NO_TILE) {
         dst_rect.x = x * TileSize;
         dst_rect.y = y * TileSize;
@@ -293,9 +293,7 @@ void renderTiles(SDL_Renderer *renderer) {
           flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
         }
         int tileIndex = currentPos&0x000003ff;
-        std::cout <<"TileIndex:" << std::endl;
-        std::cout << tileIndex << std::endl;
-        SDL_RenderTextureRotated(renderer, map.tiles[tileIndex], &src_rect,
+        SDL_RenderTextureRotated(renderer, map->tiles[tileIndex], &src_rect,
                           &dst_rect,0.0,nullptr,flip);
       }
     }
@@ -329,7 +327,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       if(ControlState&Flip_Vertically) {
         flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
       }
-      SDL_RenderTextureRotated(renderer, map.tiles[currentTile], &src_rect, &org_dest,0.0,nullptr,flip);
+      SDL_RenderTextureRotated(renderer, map->tiles[currentTile], &src_rect, &org_dest,0.0,nullptr,flip);
       break;
                }
     default:
