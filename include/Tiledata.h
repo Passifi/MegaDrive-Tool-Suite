@@ -1,12 +1,14 @@
 #pragma once
 #include <cstdint>
 #include <vector>
-
+#include <array>
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
 #include <memory>
-#include "fileIO.h"
 #define NO_TILE -1
+const unsigned int PaletteSize = 16;
+const unsigned int TileSize = 32;
+
 const int Flip_Horizontally = 0x0800;
 const int Flip_Vertically = 0x1000;
 const int PAL0 = 0x0000;
@@ -15,6 +17,10 @@ const int PAL2 = 0x4000;
 const int PAL3 = 0x6000;
 const int Low_Priority = 0x0000 ;
 const int High_Priority = 0x8000 ;
+using Tile = std::array<uint8_t, TileSize>;
+using Palette = std::array<uint16_t, PaletteSize>;
+using TileContainer = std::vector<Tile>;
+using Palettes = std::vector<Palette>;
 
 #define ExtractRed(val) (val & 0b111) * 36
 #define ExtractGreen(val) ((val & 0b11100000) >> 5) * 36

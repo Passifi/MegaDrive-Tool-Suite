@@ -8,6 +8,7 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_surface.h"
+#include "fileIO.h"
 #include <cassert>
 #include <cstdint>
 #include <cstdlib>
@@ -101,7 +102,7 @@ void fill(int startPosition) {
   while (!to_visit.empty()) {
     int currentPosition = to_visit.front();
     to_visit.pop();
-    map->data[currentPosition] = currentTile;
+    map->data[currentPosition] = currentTile|ControlState;
     add(currentPosition + 1);
     add(currentPosition - 1);
     add(currentPosition + horizontalTiles);
@@ -127,7 +128,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
-  map =  initializeMap(screenWidth,screenHeight);
+  map =  initializeMap(screenWidth/8,screenHeight/8);
 
   TileContainer container = loadTiles(filePath);
 
@@ -173,6 +174,9 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     else if (event->key.key == SDLK_Y) {
       ControlState ^= Flip_Vertically;
     }
+    else if(event->key.key == SDLK_S) {
+      saveTilemap(*map,"maptest.bin" );
+    }
   }
 
   if (event->type == SDL_EVENT_QUIT) {
@@ -196,7 +200,6 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   }
   if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
     mousedown = false;
-
     mouseState.mouseDown = false;
     mouseState.dragging = false;
   }
@@ -206,7 +209,6 @@ void renderInfo(SDL_Renderer *renderer, int x, int y) {
   int selectedTileNumber = 0;
   std::string xStr = std::to_string(x);
   std::string yStr = std::to_string(y);
-
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   SDL_RenderDebugText(renderer, 10.0f, 20.0f, xStr.data());
   SDL_RenderDebugText(renderer, 10.0f, 40.0f, yStr.data());
