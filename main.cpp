@@ -321,7 +321,8 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
 
   renderTiles(renderer);
   switch(cursorSettings.mode) {
-    case Draw: {
+    case Draw:
+    case Fill:{
       SDL_FlipMode flip = SDL_FLIP_NONE;
       if(ControlState&Flip_Horizontally) {
         flip = SDL_FLIP_HORIZONTAL;
@@ -332,10 +333,12 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       SDL_RenderTextureRotated(renderer, map->tiles[currentTile], &src_rect, &org_dest,0.0,nullptr,flip);
       break;
                }
-    default:
+    case Select:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
+    default:
+      break;
   }
   renderInfo(renderer, rx, ry);
   SDL_RenderPresent(renderer);
