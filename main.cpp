@@ -44,7 +44,31 @@ static bool mousedown = false;
 static SDL_FRect selectionRect = {0, 0, 8, 8};
 static std::ofstream logFile;
 static bool isOverTileSelection = false;
+static std::vector<MetaTile> metaTiles;
 void fill(int startPosition);
+void createMetaTile() {
+  int xBase = selectionRect.x / TileSize;
+  int yBase = selectionRect.y / TileSize;
+  int xSteps = selectionRect.w / TileSize;
+  int ySteps = selectionRect.h / TileSize;
+  MetaTile currentTile; 
+  for(int y = 0; y < ySteps; y++) {
+    for(int x = 0; x < xSteps; x++) {
+      int value = map->data[x+xBase + (y+yBase) * map->width];
+      currentTile.addTile(x, y, value);
+    }
+  }
+}
+void setMetaTile(int id,int x, int y ) {
+  for(auto& el : metaTiles[id].subTiles)  {
+    int currentX = x + el.x; 
+    int currentY = y + el.y; 
+    if(currentX >= map->width || currentY >= map->height || (currentX + currentY*map->width) >= map->data.size()) {
+      continue;
+    }
+    map->data[currentX + currentY*map->width] = el.value;
+  }
+}
 SDL_FRect tileSelectionRect = {(float)400, 000, 80, (float)screenHeight};
 /* This function runs once at startup. */
 class TileSelection {
@@ -133,11 +157,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   TileContainer container = loadTiles(filePath);
 
   Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
-  for (auto entry : palettes) {
-    for (auto c : entry) {
-      std::cout << c << std::endl;
-    }
-  }
+
   for (auto el : container) {
     auto sur = createTileFromBinaryData(el, palettes.front());
     map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
@@ -171,7 +191,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     else if (event->key.key == SDLK_X) {
       ControlState ^= Flip_Horizontally;
     }
-    else if (event->key.key == SDLK_Y) {
+    else if (event->key.key == SDLK_Z) {
       ControlState ^= Flip_Vertically;
     }
     else if(event->key.key == SDLK_S) {
@@ -195,9 +215,9 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     mouseState.mouseDown = true;
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     mouseState.startPosition = {rx, ry};
-    selectionRect.x = rx;
-    selectionRect.y = ry;
-  }
+    selectionRect.x = (int)(rx/TileSize)*8.0f;
+    selectionRect.y = (int)(ry/TileSize)*8.0f;
+    }
   if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
     mousedown = false;
     mouseState.mouseDown = false;
@@ -227,7 +247,6 @@ void checkSelection(float rx, float ry) {
     int yValue = yOffset / 8;
     currentTile = xValue + yValue * selectionHorizontalTiles;
     cursorSettings.mode = Draw;
-    mousedown = false;
     return;
   }
 
@@ -263,8 +282,8 @@ SDL_FRect processInputs(float rx, float ry) {
       break;
     case Fill:
       int xPos, yPos;
-      xPos = selectionRect.x / 8;
-      yPos = selectionRect.y / 8;
+      xPos = selectionRect.x / TileSize;
+      yPos = selectionRect.y / TileSize;
       fill(xPos + yPos * horizontalTiles);
     default:
       break;
@@ -314,7 +333,6 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   SDL_SetRenderScale(renderer, 4.0, 4.0);
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
-
   SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
   auto org_dest = processInputs(rx, ry);
   auto dst_rect = org_dest;

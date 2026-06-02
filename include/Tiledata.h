@@ -39,5 +39,19 @@ class Tilemap {
   private:
   };
 
+class SubTile {
+  public:
+    SubTile(int x, int y, int value) : x(x), y(y), value(value) {}
+  int x;
+  int y;
+  int value;
+};
+class MetaTile {
+  public:
+    size_t width,height;
+    std::vector<SubTile> subTiles; 
+    void addTile(int x, int y, int value);
+};
+
 SDL_Surface *createTileFromBinaryData(Tile data, Palette palette);
 Tilemap* initializeMap(size_t width, size_t height);

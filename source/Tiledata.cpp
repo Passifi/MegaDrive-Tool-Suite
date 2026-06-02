@@ -1,4 +1,8 @@
 #include "../include/Tiledata.h"
+
+void MetaTile::addTile(int x, int y, int value) {
+  this->subTiles.push_back({x,y,value});
+}
 static std::unique_ptr<Tilemap>  mainMap = nullptr;
 SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
 
