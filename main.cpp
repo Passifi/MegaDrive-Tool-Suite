@@ -58,11 +58,12 @@ void createMetaTile() {
       currentTile.addTile(x, y, value);
     }
   }
+  metaTiles.push_back(currentTile);
 }
 void setMetaTile(int id,int x, int y ) {
   for(auto& el : metaTiles[id].subTiles)  {
-    int currentX = x + el.x; 
-    int currentY = y + el.y; 
+    int currentX = (selectionRect.x/TileSize) + el.x; 
+    int currentY = (selectionRect.y/TileSize) + el.y; 
     if(currentX >= map->width || currentY >= map->height || (currentX + currentY*map->width) >= map->data.size()) {
       continue;
     }
@@ -196,6 +197,12 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     }
     else if(event->key.key == SDLK_S) {
       saveTilemap(*map,"maptest.bin" );
+    }
+    else if(event->key.key == SDLK_M) {
+      createMetaTile();
+    }
+    else if(event->key.key == SDLK_T) {
+      setMetaTile(0, 0, 0);
     }
   }
 
