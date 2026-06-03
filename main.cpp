@@ -46,14 +46,26 @@ static std::ofstream logFile;
 static bool isOverTileSelection = false;
 static std::vector<MetaTile> metaTiles;
 static size_t metaIndex = 0;
-
+class TileMapController {
+  Tilemap* map = nullptr;
+  size_t mapIndex;
+  bool isEmpty();
+  void initializeMap();
+  Tile& getTileAt(int x, int y);
+  Tile& getSelectedTile();
+  void choseNextTile();
+  void chosePreviousTile();
+};
 class MetaSelector {  // can't guratentee that the index is right if the size of tiles changes 
   // possibly consider only exposing tile changes via the class e.g. addTile removeTile, for remove maybe too options with popping and removing a specific tile then update the index accordinlgy  
   // this would also suggest that at this point MetaSelector should own the vector completly so no reference anymore...  
   public: 
-  std::vector<MetaTile> &tiles;
+  std::vector<MetaTile> tiles;
   size_t metaIndex = 0;
   MetaSelector(std::vector<MetaTile>& tiles) : tiles(tiles) {
+  }
+  bool isEmpty() {
+    return tiles.size() == 0;
   }
   void incrementIndex() { 
     if(metaIndex < tiles.size()-1)
