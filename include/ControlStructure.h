@@ -1,5 +1,6 @@
 enum CursorMode {
   Draw,
+  DrawMeta,
   Fill,
   Select, 
   Erase
