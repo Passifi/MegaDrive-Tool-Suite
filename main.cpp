@@ -48,18 +48,49 @@ static size_t metaIndex = 0;
 
 class TileMapController {
   Tilemap* map = nullptr;
-  size_t mapIndex;
+  size_t currentTile;
+  int tileState= 0;
   bool isEmpty();
-  void initializeMap();
-  Tile& getTileAt(int x, int y);
-  Tile& getSelectedTile();
-  void choseNextTile();
-  void chosePreviousTile();
+  void initMap() {
+    map = initializeMap(screenWidth/TileSize, screenHeight/TileSize);
+  }
+  int getTileValueAt(int x, int y) {
+    if(x + y*map->width < map->data.size()) {
+      return map->data[x+y*map->width];
+    }
+    else {
+      return NO_TILE;
+    }
+  }
+  SDL_Texture* getSelectedTileTexture() {
+    return map->tiles[this->currentTile];
+  }
+  
+  void setTileAt(int metadata,int x, int y) {
+      if(x + y*map->width < map->data.size()) {
+        return;
+      } 
+      auto val = currentTile|metadata;
+      map->data[x+y*map->width] = val;
+  }
+
+  void choseNextTile() {
+    currentTile++;
+    if(map->tiles.size() <= currentTile ) {
+      currentTile = 0;
+    }
+  }
+  void chosePreviousTile() {
+    if(currentTile == 0) {
+      currentTile = map->tiles.size() -1;
+    }
+    else {
+      currentTile--;
+    }
+  }
 };
 
-class MetaSelector {  // can't guratentee that the index is right if the size of tiles changes 
-  // possibly consider only exposing tile changes via the class e.g. addTile removeTile, for remove maybe too options with popping and removing a specific tile then update the index accordinlgy  
-  // this would also suggest that at this point MetaSelector should own the vector completly so no reference anymore...  
+class MetaSelector { 
   public: 
   std::vector<MetaTile> tiles;
   size_t metaIndex = 0;

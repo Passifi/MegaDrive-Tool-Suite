@@ -430,3 +430,7 @@
 11	71	8022784854798573	C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs	45e88f65880328c0
 99	1173	8022784855668591	CMakeFiles/megaTile.dir/main.cpp.obj	7e91d9cdce9d4771
 1174	1377	8022784866422618	megaTile.exe	7a9619d1b31adf01
+17	85	8022811686370798	C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs	45e88f65880328c0
+124	968	8022811687445033	CMakeFiles/megaTile.dir/source/fileIO.cpp.obj	78c24e3098ed56c0
+118	1371	8022811687385022	CMakeFiles/megaTile.dir/main.cpp.obj	7e91d9cdce9d4771
+1371	1599	8022811699922836	megaTile.exe	7a9619d1b31adf01
