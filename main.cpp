@@ -44,8 +44,8 @@ static bool mousedown = false;
 static SDL_FRect selectionRect = {0, 0, 8, 8};
 static std::ofstream logFile;
 static bool isOverTileSelection = false;
-static std::vector<MetaTile> metaTiles;
 static size_t metaIndex = 0;
+
 class TileMapController {
   Tilemap* map = nullptr;
   size_t mapIndex;
@@ -56,6 +56,7 @@ class TileMapController {
   void choseNextTile();
   void chosePreviousTile();
 };
+
 class MetaSelector {  // can't guratentee that the index is right if the size of tiles changes 
   // possibly consider only exposing tile changes via the class e.g. addTile removeTile, for remove maybe too options with popping and removing a specific tile then update the index accordinlgy  
   // this would also suggest that at this point MetaSelector should own the vector completly so no reference anymore...  
@@ -64,16 +65,23 @@ class MetaSelector {  // can't guratentee that the index is right if the size of
   size_t metaIndex = 0;
   MetaSelector(std::vector<MetaTile>& tiles) : tiles(tiles) {
   }
+  MetaSelector() {
+        
+  }
   bool isEmpty() {
     return tiles.size() == 0;
   }
   void incrementIndex() { 
     if(metaIndex < tiles.size()-1)
     this->metaIndex++;
+    else 
+      this->metaIndex = 0;
   }
   void decerementIndex() {
     if(metaIndex > 0) 
       this->metaIndex--;
+    else 
+      this->metaIndex = tiles.size()-1;
   }
   void setIndex(size_t position) {
     if(position < tiles.size()) {
@@ -83,10 +91,15 @@ class MetaSelector {  // can't guratentee that the index is right if the size of
   MetaTile& getTile() {
     return tiles[metaIndex];
   }
-};
 
+  void addTile(MetaTile& tile) {
+    tiles.push_back(tile);
+  }
+
+};
+MetaSelector metaSelector;
 void fill(int startPosition);
-void createMetaTile() {
+MetaTile createMetaTile() {
   int xBase = selectionRect.x / TileSize;
   int yBase = selectionRect.y / TileSize;
   int xSteps = selectionRect.w / TileSize;
@@ -98,10 +111,15 @@ void createMetaTile() {
       currentTile.addTile(x, y, value);
     }
   }
-  metaTiles.push_back(currentTile);
+  metaSelector.addTile(currentTile);
+  return currentTile;
 }
 void setMetaTile(int id,int x, int y ) {
-  for(auto& el : metaTiles[id].subTiles)  {
+  auto tile = metaSelector.getTile();
+  for(auto& el : tile.subTiles)  {
+    if(el.value == NO_TILE) {
+      continue;
+    }
     int currentX = (selectionRect.x/TileSize) + el.x; 
     int currentY = (selectionRect.y/TileSize) + el.y; 
     if(currentX >= map->width || currentY >= map->height || (currentX + currentY*map->width) >= map->data.size()) {
@@ -111,7 +129,15 @@ void setMetaTile(int id,int x, int y ) {
   }
 }
 
-SDL_FlipMode getTileRenderdata(int value) {
+struct TileMetaData {
+  SDL_FlipMode flipped = SDL_FLIP_NONE;
+  uint8_t paletteNo;
+  bool priority;
+  int tileIndex;
+};
+
+TileMetaData getTileRenderdata(int value) { // change so that all extracted info is returned
+  TileMetaData metaData; 
   SDL_FlipMode flip = SDL_FLIP_NONE;   
   if(value&Flip_Horizontally)
         {
@@ -121,21 +147,27 @@ SDL_FlipMode getTileRenderdata(int value) {
           flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
         }
         int tileIndex = value&0x000003ff;
-    return flip; 
+    metaData.tileIndex = tileIndex;
+    metaData.flipped = flip;
+    metaData.priority = value&0x8000;
+    metaData.paletteNo = (value&0x6000)>>13;
+    return metaData; 
 }
 
 void renderMetatile(MetaTile* tile,int x, int y) {
   SDL_FRect src_rect = {0,0,8,8};
   SDL_FRect dst_rect = {0,0,8,8};
   for(const auto& el : tile->subTiles) {
+
+    int value = el.value; 
+    
+    if(value == NO_TILE) continue;  
     int currentX = x + el.x; 
     int currentY = y + el.y; 
-    int value = el.value; 
-    SDL_FlipMode flip = getTileRenderdata(value); // extract rendering info shoudl probably be it's own function 
-    int tileIndex = value&0x000003ff;
+    auto metadata = getTileRenderdata(value); // extract rendering info shoudl probably be it's own function 
     dst_rect.x = currentX*TileSize;
     dst_rect.y = currentY*TileSize;
-    SDL_RenderTextureRotated(renderer, map->tiles[tileIndex], &src_rect, &dst_rect, 0.0,  nullptr, flip);
+    SDL_RenderTextureRotated(renderer, map->tiles[metadata.tileIndex], &src_rect, &dst_rect, 0.0,  nullptr, metadata.flipped);
   }
 }
 SDL_FRect tileSelectionRect = {(float)400, 000, 80, (float)screenHeight};
@@ -242,13 +274,22 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     if (event->key.key == SDLK_ESCAPE) {
       return SDL_APP_SUCCESS;
     } else if (event->key.key == SDLK_LEFT) {
+      if(cursorSettings.mode == DrawMeta) {
+        metaSelector.incrementIndex();
+      } 
+      else {
       if (currentTile > 0)
         currentTile--;
+      }
     } else if (event->key.key == SDLK_RIGHT) {
+      if(cursorSettings.mode == DrawMeta) {
+        metaSelector.decerementIndex();
+      }
+      else {
       currentTile++;
       if (currentTile >= map->tiles.size()) {
         currentTile = map->tiles.size() - 1;
-      }
+      }}
     } else if (event->key.key == SDLK_F) {
         cursorSettings.mode = Fill; 
       
@@ -358,6 +399,9 @@ SDL_FRect processInputs(float rx, float ry) {
     case Select:
       checkSelection(rx, ry);
       break;
+    case DrawMeta:
+      setMetaTile(metaIndex, alignedX, alignedY);
+      break;
     case Fill:
       int xPos, yPos;
       xPos = selectionRect.x / TileSize;
@@ -430,8 +474,8 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       break;
                }
     case DrawMeta: 
-      // renderMetatile(MetaTile* tile,int x, int y); -> just push a render command into the render pipeline and let the renderer execute it 
-
+      renderMetatile(&metaSelector.getTile() ,org_dest.x/TileSize, org_dest.y/TileSize);  
+      
       break;
     case Select:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);

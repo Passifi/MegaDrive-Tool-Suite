@@ -2,12 +2,38 @@
 #include <cstdint>
 
 struct TilemapFile {
-  char tiles[5] = "tile";
+  char tiles[4] = {'t','i','l','e'};
+  uint16_t versionNo; 
   uint32_t size_referenceTiles;
   uint32_t size_palettes;
   uint32_t tilemapWidth;
   uint32_t tilemapHeight;
+  uint32_t metatiledata;
+  uint32_t extraHeaderInfo;
 };
+
+
+void loadTilemap(Tilemap& tilemap,std::string path) {
+  TilemapFile metaData;
+  std::ifstream file;
+  file.open(path,std::ios::binary | std::ios::in);
+  if(file) {
+    std::string basicData;
+    basicData.resize(5);
+    file.read(&basicData[0],4);
+    basicData[4] = '\0';
+    if(basicData != "Tile") return;
+    file.read(reinterpret_cast<char*>(&metaData.versionNo),sizeof(metaData.versionNo));    
+    file.read(reinterpret_cast<char*>(&metaData.size_referenceTiles),sizeof(metaData.size_referenceTiles));    
+    file.read(reinterpret_cast<char*>(&metaData.size_palettes),sizeof(metaData.size_palettes));    
+    file.read(reinterpret_cast<char*>(&metaData.tilemapWidth),sizeof(metaData.tilemapWidth));    
+    file.read(reinterpret_cast<char*>(&metaData.tilemapHeight),sizeof(metaData.tilemapHeight));    
+    file.read(reinterpret_cast<char*>(&metaData.metatiledata),sizeof(metaData.metatiledata));    
+    file.read(reinterpret_cast<char*>(&metaData.extraHeaderInfo),sizeof(metaData.extraHeaderInfo));    
+
+
+  }
+}
 
 void saveTilemap(Tilemap& tilemap, std::string path) {
   std::ofstream file;
@@ -18,11 +44,15 @@ void saveTilemap(Tilemap& tilemap, std::string path) {
     uint32_t sizePalettes = 0;
     uint32_t width = static_cast<uint32_t>(tilemap.width);
     uint32_t height = static_cast<uint32_t>(tilemap.height);
+    uint32_t metatiledata= 0;
+    uint32_t extraHeaderInfo = 0;
     file.write(reinterpret_cast<const char*>(&chardata),5);
     file.write(reinterpret_cast<const char*>(&sizeTiles),4);
     file.write(reinterpret_cast<const char*>(&sizePalettes),4);
     file.write(reinterpret_cast<const char*>(&width),4);
     file.write(reinterpret_cast<const char*>(&height),4);
+    file.write(reinterpret_cast<const char*>(&metatiledata),4);
+    file.write(reinterpret_cast<const char*>(&extraHeaderInfo),4);
     for(auto& el : tilemap.data) {
       uint16_t tileID = static_cast<uint16_t>(el+1);
       file.write(reinterpret_cast<const char*>(&tileID),2);
@@ -30,6 +60,46 @@ void saveTilemap(Tilemap& tilemap, std::string path) {
   }
   file.close();
 }
+void saveTilemap(Tilemap& tilemap,std::vector<MetaTile>& metaTiles, std::string path) {
+  std::ofstream file;
+  file.open(path,std::ios::binary |std::ios::out);
+  if(file) {
+    char chardata[] = "Tile";
+    uint32_t sizeTiles = 0;
+    uint32_t sizePalettes = 0;
+    uint32_t width = static_cast<uint32_t>(tilemap.width);
+    uint32_t height = static_cast<uint32_t>(tilemap.height);
+    uint32_t metatiledata= metaTiles.size();
+    uint32_t extraHeaderInfo = 0;
+    file.write(reinterpret_cast<const char*>(&chardata),5);
+    file.write(reinterpret_cast<const char*>(&sizeTiles),4);
+    file.write(reinterpret_cast<const char*>(&sizePalettes),4);
+    file.write(reinterpret_cast<const char*>(&width),4);
+    file.write(reinterpret_cast<const char*>(&height),4);
+    file.write(reinterpret_cast<const char*>(&metatiledata),4);
+    file.write(reinterpret_cast<const char*>(&extraHeaderInfo),4);
+    for(auto& el : tilemap.data) {
+      uint16_t tileID = static_cast<uint16_t>(el+1);
+      file.write(reinterpret_cast<const char*>(&tileID),2);
+    }  
+    for(auto& el : metaTiles) {
+    for(auto& subEl: el.subTiles) {
+
+    
+      uint32_t value = static_cast<uint16_t>(subEl.value);
+      uint16_t x,y;
+      x = subEl.x;
+      y = subEl.y;
+      file.write(reinterpret_cast<const char*>(&value),4);
+      file.write(reinterpret_cast<const char*>(&x),2);
+      file.write(reinterpret_cast<const char*>(&y),2);
+
+    }
+    } 
+  }
+  file.close();
+}
+
 Palettes loadPalettes(std::string path) {
   std::ifstream file;
   file.open(path, std::ios::binary | std::ios::in);

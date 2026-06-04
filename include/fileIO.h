@@ -7,11 +7,13 @@
 #include <vector>
 #include "Tiledata.h"
 struct TilemapHeader {
-  int numberofTiles;
-  int tilemapSize;
-  int noOfPalettes;
-  int verticalMapSize;
-  int horizontalMapSize;
+  uint32_t numberofTiles;
+  uint32_t tilemapSize;
+  uint32_t noOfPalettes;
+  uint32_t verticalMapSize;
+  uint32_t horizontalMapSize;
+  uint32_t metaTiledataSize;
+  uint32_t extraHeaderInfoSize;
 };
 // PaletteSize * numberOfPalettes => start of tileData, tileSize * numberOfTiles
 // => startof tilemap
@@ -26,4 +28,5 @@ public:
 Palettes loadPalettes(std::string path);
 TileContainer loadTiles(std::string path);
 void saveTilemap(Tilemap& tilemap,std::string path);
+void saveTilemap(Tilemap& tilemap,std::vector<MetaTile>& metaTiles,std::string path);
 void loadTilemap(Tilemap& tilemap,std::string path);
