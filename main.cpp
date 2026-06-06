@@ -117,7 +117,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     return SDL_APP_FAILURE;
   }
   map =  initializeMap(screenWidth/8,screenHeight/8);
-
+  
+  intializeRender(screenWidth, screenHeight);
   TileContainer container = loadTiles(filePath);
 
   Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
@@ -197,8 +198,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     mouseState.mouseDown = true;
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     mouseState.startPosition = {rx, ry};
-    selectionRect.x = (int)(rx/TILE_SIZE)*8.0f;
-    selectionRect.y = (int)(ry/TILE_SIZE)*8.0f;
+    selectionRect.x = (int)(rx/TILE_SIZE)*TILE_SIZE;
+    selectionRect.y = (int)(ry/TILE_SIZE)*TILE_SIZE;
     }
   if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
     mousedown = false;
@@ -240,7 +241,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       renderMetatile(renderer,map,&metaSelector.getTile() ,org_dest.x/TILE_SIZE, org_dest.y/TILE_SIZE);  
       break;
     case Select:
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0x43);
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
     default:
@@ -264,35 +265,35 @@ void checkSelection(float rx, float ry) {
     auto selectionHorizontalTiles = tileSelectionRect.w / TILE_SIZE;
     auto xOffset = rx - tileSelectionRect.x;
     auto yOffset = ry - tileSelectionRect.y;
-    int xValue = xOffset / 8;
-    int yValue = yOffset / 8;
+    int xValue = xOffset / TILE_SIZE;
+    int yValue = yOffset / TILE_SIZE;
     currentTile = xValue + yValue * selectionHorizontalTiles;
     cursorSettings.mode = Draw;
     return;
   }
 
   if (selectionRect.x + selectionRect.w < rx) {
-    selectionRect.w += 8;
-  } else if (selectionRect.x + selectionRect.w - 8 > rx) {
-    if (selectionRect.w > 8) {
-      selectionRect.w -= 8;
+    selectionRect.w += TILE_SIZE;
+  } else if (selectionRect.x + selectionRect.w - TILE_SIZE > rx) {
+    if (selectionRect.w > TILE_SIZE) {
+      selectionRect.w -= TILE_SIZE;
     }
   } else if (selectionRect.y + selectionRect.h < ry) {
-    selectionRect.h += 8;
-  } else if (selectionRect.y + selectionRect.h - 8 > ry) {
-    if (selectionRect.h > 8) {
-      selectionRect.h -= 8;
+    selectionRect.h += TILE_SIZE;
+  } else if (selectionRect.y + selectionRect.h - TILE_SIZE > ry) {
+    if (selectionRect.h > TILE_SIZE) {
+      selectionRect.h -= TILE_SIZE;
     }
   }
 }
 
 SDL_FRect processInputs(float rx, float ry) {
-  int alignedX = static_cast<int>(rx) / 8;
+  int alignedX = static_cast<int>(rx) / TILE_SIZE;
   float xSet = static_cast<float>(alignedX);
-  int alignedY = static_cast<int>(ry) / 8;
+  int alignedY = static_cast<int>(ry) / TILE_SIZE;
   float ySet = static_cast<float>(alignedY);
 
-  SDL_FRect result = {xSet, ySet, 8, 8};
+  SDL_FRect result = {xSet, ySet, TILE_SIZE, TILE_SIZE};
   if (mouseState.mouseDown) {
     switch (cursorSettings.mode) {
     case Draw:

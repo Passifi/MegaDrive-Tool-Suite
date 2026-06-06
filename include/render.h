@@ -7,7 +7,7 @@ class Renderer {
   int screenWidth;
   int screenHeight;
   float scaleX,scaleY;
-  std::unique_ptr<SDL_Renderer> renderer = nullptr; 
+  //std::unique_ptr<SDL_Renderer> renderer = nullptr; 
 
   void intialize();
   SDL_Renderer* getCurrentRenderer();

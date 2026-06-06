@@ -8,8 +8,8 @@ static int horizontalTiles;
 void intializeRender(int screenW, int screenH) {
   screenWidth = screenW;
   screenHeight = screenH;
-  verticalTiles = screenW/TILE_SIZE;
-  horizontalTiles = screenH/TILE_SIZE;
+  verticalTiles = screenH/TILE_SIZE;
+  horizontalTiles = screenW/TILE_SIZE;
 }
 void renderTiles(SDL_Renderer *renderer,Tilemap* map) {
   try {
