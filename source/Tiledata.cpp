@@ -44,5 +44,25 @@ Tilemap* initializeMap(size_t width, size_t height) {
   return mainMap.get();
 }
 
+TileMetaData getTileRenderdata(int value) { // change so that all extracted info is returned
+  TileMetaData metaData; 
+  SDL_FlipMode flip = SDL_FLIP_NONE;   
+  if(value&Flip_Horizontally)
+        {
+          flip = (SDL_FlipMode)(SDL_FLIP_HORIZONTAL|flip);
+        }
+        if(value&Flip_Vertically) {
+          flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
+        }
+        int tileIndex = value&0x000003ff;
+    metaData.tileIndex = tileIndex;
+    metaData.flipped = flip;
+    metaData.priority = value&0x8000;
+    metaData.paletteNo = (value&0x6000)>>13;
+    return metaData; 
+}
+
+
+
 
 

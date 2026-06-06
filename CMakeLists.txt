@@ -17,6 +17,7 @@ PRIVATE
   Tiledata.cpp   
   source/Tiledata.cpp
   source/fileIO.cpp
+  source/render.cpp
 PUBLIC
   FILE_SET HEADERS
   BASE_DIRS 
@@ -24,6 +25,7 @@ PUBLIC
   FILES 
     include/Tiledata.h
     include/ControlStructure.h
+    include/render.h
   )
 
 # Link to the actual SDL3 library.
