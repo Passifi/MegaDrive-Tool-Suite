@@ -17,6 +17,7 @@ void renderTiles(SDL_Renderer *renderer,Tilemap* map);
 void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
                          SDL_FRect dimensions);
 
-void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector ,SDL_FRect dimensions);
+void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap*map ,SDL_FRect dimensions);
 void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y);
+void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale);
 void renderInfo(SDL_Renderer *renderer, int x, int y);

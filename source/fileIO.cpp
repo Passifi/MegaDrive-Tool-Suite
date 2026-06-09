@@ -1,6 +1,6 @@
 #include "../include/fileIO.h"
 #include <cstdint>
-
+const uint16_t versionNo = 1;
 struct TilemapFile {
   char tiles[4] = {'t','i','l','e'};
   uint16_t versionNo; 
@@ -30,7 +30,17 @@ void loadTilemap(Tilemap& tilemap,std::string path) {
     file.read(reinterpret_cast<char*>(&metaData.tilemapHeight),sizeof(metaData.tilemapHeight));    
     file.read(reinterpret_cast<char*>(&metaData.metatiledata),sizeof(metaData.metatiledata));    
     file.read(reinterpret_cast<char*>(&metaData.extraHeaderInfo),sizeof(metaData.extraHeaderInfo));    
-
+    
+    if(metaData.size_referenceTiles > 0) {
+      std::vector<Tile> tiles;  
+      tiles.resize(sizeof(Tile)*(metaData.size_referenceTiles/TileSize));
+     
+      int index = 0;
+      while(index*TileSize < metaData.size_referenceTiles)  {
+        file.read(reinterpret_cast<char*>(tiles[index].data()),tiles[index].size());
+        index++; 
+      }
+    }
 
   }
 }
@@ -46,13 +56,15 @@ void saveTilemap(Tilemap& tilemap, std::string path) {
     uint32_t height = static_cast<uint32_t>(tilemap.height);
     uint32_t metatiledata= 0;
     uint32_t extraHeaderInfo = 0;
+
     file.write(reinterpret_cast<const char*>(&chardata),5);
-    file.write(reinterpret_cast<const char*>(&sizeTiles),4);
-    file.write(reinterpret_cast<const char*>(&sizePalettes),4);
-    file.write(reinterpret_cast<const char*>(&width),4);
-    file.write(reinterpret_cast<const char*>(&height),4);
-    file.write(reinterpret_cast<const char*>(&metatiledata),4);
-    file.write(reinterpret_cast<const char*>(&extraHeaderInfo),4);
+    file.write(reinterpret_cast<const char*>(&versionNo),sizeof(versionNo));    
+    file.write(reinterpret_cast<const char*>(&sizeTiles),sizeof(uint32_t));
+    file.write(reinterpret_cast<const char*>(&sizePalettes),sizeof(uint32_t));
+    file.write(reinterpret_cast<const char*>(&width),sizeof(uint32_t));
+    file.write(reinterpret_cast<const char*>(&height),sizeof(uint32_t));
+    file.write(reinterpret_cast<const char*>(&metatiledata),sizeof(uint32_t));
+    file.write(reinterpret_cast<const char*>(&extraHeaderInfo),sizeof(uint32_t));
     for(auto& el : tilemap.data) {
       uint16_t tileID = static_cast<uint16_t>(el+1);
       file.write(reinterpret_cast<const char*>(&tileID),2);

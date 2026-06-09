@@ -3,6 +3,7 @@ enum CursorMode {
   DrawMeta,
   Fill,
   Select, 
+  SelectMeta,
   Erase
 };
 struct CursorSettings {

@@ -328,3 +328,10 @@
 104	780	8024515087916185	CMakeFiles/megaTile.dir/source/render.cpp.obj	f43f196bc273f7e1
 98	1172	8024515087866175	CMakeFiles/megaTile.dir/main.cpp.obj	7e91d9cdce9d4771
 1173	1375	8024515098611342	megaTile.exe	dced16cfd2b7305a
+30	92	8027295196470500	C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs	45e88f65880328c0
+133	2770	8027295197491994	CMakeFiles/megaTile.dir/source/Tiledata.cpp.obj	5c02990c22363306
+145	2954	8027295197617139	CMakeFiles/megaTile.dir/source/render.cpp.obj	f43f196bc273f7e1
+139	3157	8027295197557133	CMakeFiles/megaTile.dir/source/fileIO.cpp.obj	78c24e3098ed56c0
+11	72	8027295678906328	C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs	45e88f65880328c0
+100	1170	8027295679801377	CMakeFiles/megaTile.dir/main.cpp.obj	7e91d9cdce9d4771
+1171	1861	8027295690509875	megaTile.exe	dced16cfd2b7305a

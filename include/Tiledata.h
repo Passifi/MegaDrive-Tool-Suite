@@ -67,6 +67,7 @@ class MetaTile {
     size_t width,height;
     std::vector<SubTile> subTiles; 
     void addTile(int x, int y, int value);
+    SDL_Texture* texture = nullptr;
 };
 class MetaSelector { 
   public: 
@@ -99,6 +100,9 @@ class MetaSelector {
   }
   MetaTile& getTile() {
     return tiles[metaIndex];
+  } 
+  MetaTile* getTileAt(int index) {
+    return &tiles[index];
   }
 
   void addTile(MetaTile& tile) {

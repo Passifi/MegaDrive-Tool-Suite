@@ -165,6 +165,9 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     else if(event->key.key == SDLK_F3) {
       cursorSettings.mode = DrawMeta;
     }
+    else if(event->key.key == SDLK_F4) {
+      cursorSettings.mode = SelectMeta;
+    }
     else if (event->key.key == SDLK_X) {
       ControlState ^= Flip_Horizontally;
     }
@@ -244,6 +247,8 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0x43);
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
+    case SelectMeta:
+      renderMetaTileSelection(renderer, metaSelector, map, tileSelectionRect);
     default:
       break;
   }

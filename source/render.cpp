@@ -1,5 +1,7 @@
 #include "../include/render.h"
+#include "SDL3/SDL_pixels.h"
 #include "SDL3/SDL_render.h"
+#include "SDL3/SDL_surface.h"
 static int screenWidth; 
 static int screenHeight;
 static int verticalTiles; 
@@ -72,17 +74,21 @@ void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
 }
 // best approach would probably be to get an SDL_texture from the metatile and dispaly that, this way you can actually scale stuffs
 
-void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector ,SDL_FRect dimensions) {
+void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap *map ,SDL_FRect dimensions) {
   SDL_SetRenderDrawColor(renderer, 0xf, 0xf, 0xf, 0x33);
   SDL_RenderFillRect(renderer,&dimensions );
   int currentX = 0;
   int currentY = 0;
   for(auto& el : selector.tiles) {
-    auto widht = el.width;
-    auto height = el.height; 
-    for(auto& subTile : el.subTiles) {
-      SDL_FRect position = {(float)(currentX + subTile.x),(float)(currentY + subTile.y),TILE_SIZE,TILE_SIZE};
-    }
+    float width = el.width;
+    if(currentX + width > dimensions.w) {
+      currentY += 40;
+      currentX = 0;
+    } 
+    float height = el.height;
+    renderMetatile(renderer,map,&el,currentX,currentY);
+    currentX+= width;  
+    
   }
 }
 
@@ -101,7 +107,26 @@ void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, in
     dst_rect.y = currentY*TILE_SIZE;
     SDL_RenderTextureRotated(renderer, map->tiles[metadata.tileIndex], &src_rect, &dst_rect, 0.0,  nullptr, metadata.flipped);
   }
+ 
 }
+void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale) {
+  SDL_FRect src_rect = {0,0,8*scale,8*scale};
+  SDL_FRect dst_rect = {0,0,8*scale,8*scale};
+  for(const auto& el : tile->subTiles) {
+
+    int value = el.value; 
+    if(value == NO_TILE) continue;  
+    int currentX = x + el.x; 
+    int currentY = y + el.y; 
+    auto metadata = getTileRenderdata(value); // extract rendering info shoudl probably be it's own function 
+    dst_rect.x = currentX*TILE_SIZE;
+    dst_rect.y = currentY*TILE_SIZE;
+    SDL_RenderTextureRotated(renderer, map->tiles[metadata.tileIndex], &src_rect, &dst_rect, 0.0,  nullptr, metadata.flipped);
+  }
+ 
+}
+
+
 void renderInfo(SDL_Renderer *renderer, int x, int y) {
   int selectedTileNumber = 0;
   std::string xStr = std::to_string(x);
