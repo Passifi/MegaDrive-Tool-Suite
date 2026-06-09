@@ -22,7 +22,6 @@
 #include "include/render.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-
 struct MouseState {
   bool mouseDown = false;
   bool dragging = false;
@@ -33,63 +32,17 @@ MouseState mouseState;
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 static float mouseX, mouseY = 4.0;
-static int currentTile = 0;
 static int screenWidth = 800;
 static int screenHeight = 600;
 static int horizontalTiles = screenWidth / TILE_SIZE;
 static int verticalTiles = screenHeight / TILE_SIZE;
+TileMapController tilemapController;
 static Tilemap* map=nullptr;
 static CursorSettings cursorSettings;
 static bool mousedown = false;
 static SDL_FRect selectionRect = {0, 0, 8, 8};
 static std::ofstream logFile;
 static bool isOverTileSelection = false;
-static size_t metaIndex = 0;
-class TileMapController {
-  Tilemap* map = nullptr;
-  size_t currentTile;
-  int tileState= 0;
-  bool isEmpty();
-  void initMap() {
-    map = initializeMap(screenWidth/TILE_SIZE, screenHeight/TILE_SIZE);
-  }
-  int getTileValueAt(int x, int y) {
-    if(x + y*map->width < map->data.size()) {
-      return map->data[x+y*map->width];
-    }
-    else {
-      return NO_TILE;
-    }
-  }
-  SDL_Texture* getSelectedTileTexture() {
-    return map->tiles[this->currentTile];
-  }
-  
-  void setTileAt(int metadata,int x, int y) {
-      if(x + y*map->width < map->data.size()) {
-        return;
-      } 
-      auto val = currentTile|metadata;
-      map->data[x+y*map->width] = val;
-  }
-
-  void choseNextTile() {
-    currentTile++;
-    if(map->tiles.size() <= currentTile ) {
-      currentTile = 0;
-    }
-  }
-  void chosePreviousTile() {
-    if(currentTile == 0) {
-      currentTile = map->tiles.size() -1;
-    }
-    else {
-      currentTile--;
-    }
-  }
-};
-
-void fill(int startPosition);
 void checkSelection(float rx, float ry);
 SDL_FRect processInputs(float rx, float ry);
 MetaTile createMetaTile();
@@ -120,7 +73,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   
   intializeRender(screenWidth, screenHeight);
   TileContainer container = loadTiles(filePath);
-
+  tilemapController.initMap(screenWidth,screenHeight); 
   Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
 
   for (auto el : container) {
@@ -153,7 +106,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       currentTile++;
       if (currentTile >= map->tiles.size()) {
         currentTile = map->tiles.size() - 1;
-      }}
+      }
+      }
     } else if (event->key.key == SDLK_F) {
         cursorSettings.mode = Fill; 
       
@@ -169,10 +123,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       cursorSettings.mode = SelectMeta;
     }
     else if (event->key.key == SDLK_X) {
-      ControlState ^= Flip_Horizontally;
+      tilemapController.setFlipVertical();
     }
     else if (event->key.key == SDLK_Z) {
-      ControlState ^= Flip_Vertically;
+      tilemapController.setFlipHorizontal();
     }
     else if(event->key.key == SDLK_S) {
       saveTilemap(*map,"maptest.bin" );
@@ -225,7 +179,6 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
   auto org_dest = processInputs(rx, ry);
   auto dst_rect = org_dest;
-
   renderTiles(renderer,map);
   switch(cursorSettings.mode) {
     case Draw:
@@ -237,7 +190,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       if(ControlState&Flip_Vertically) {
         flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
       }
-      SDL_RenderTextureRotated(renderer, map->tiles[currentTile], &src_rect, &org_dest,0.0,nullptr,flip);
+      SDL_RenderTextureRotated(renderer, tilemapController.getSelectedTileTexture(), &src_rect, &org_dest,0.0,nullptr,flip);
       break;
                }
     case DrawMeta: 
@@ -248,7 +201,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     SDL_RenderRect(renderer, &selectionRect);
     renderTileSelection(renderer, possibleTiles, tileSelectionRect);
     case SelectMeta:
-      renderMetaTileSelection(renderer, metaSelector, map, tileSelectionRect);
+      renderMetaTileSelection(renderer, metaSelector,nullptr, tileSelectionRect);
     default:
       break;
   }
@@ -314,7 +267,7 @@ SDL_FRect processInputs(float rx, float ry) {
       int xPos, yPos;
       xPos = selectionRect.x / TILE_SIZE;
       yPos = selectionRect.y / TILE_SIZE;
-      fill(xPos + yPos * horizontalTiles);
+      tilemapController.fill(xPos + yPos * horizontalTiles);
     default:
       break;
     }
@@ -352,31 +305,4 @@ void setMetaTile(int id,int x, int y ) {
     map->data[currentX + currentY*map->width] = el.value;
   }
 }
-void fill(int startPosition) {
-  assert(startPosition >= 0 && startPosition < map->data.size());
-  std::queue<int> to_visit;
-  std::set<int> visited;
-  to_visit.push(startPosition);
-  visited.insert(startPosition);
-  int originalTile = map->data[startPosition];
-  auto add = [&](int element) {
-    if ((element >= 0) && (element < map->data.size()) &&
-        (map->data[element] == originalTile)
-        && (visited.count(element) == 0)) {
-      to_visit.push(element);
-      visited.insert(element);
-    }
-  };
-  while (!to_visit.empty()) {
-    int currentPosition = to_visit.front();
-    to_visit.pop();
-    map->data[currentPosition] = currentTile|ControlState;
-    add(currentPosition + 1);
-    add(currentPosition - 1);
-    add(currentPosition + horizontalTiles);
-    add(currentPosition - horizontalTiles);
-  }
-}
-
-
 

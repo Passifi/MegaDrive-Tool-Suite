@@ -2,11 +2,20 @@
 #include <cstdint>
 #include <vector>
 #include <array>
+#include <queue> 
+#include <map>
+#include <set>
+#include <assert.h>
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
 #include <memory>
 #define NO_TILE -1
 #define TILE_SIZE 8
+#define ExtractRed(val) (val & 0b111) * 36
+#define ExtractGreen(val) ((val & 0b11100000) >> 5) * 36
+#define ExtractBlue(val) ((val & 0b111000000000) >> 9) * 36
+#define SetPalette(val,palette) (val & 0x0fff) | palette
+
 const unsigned int PaletteSize = 16;
 const unsigned int TileSize = 32;
 
@@ -37,11 +46,6 @@ public:
   std::vector<SDL_Texture *> tileTextures;
 };
 
-
-#define ExtractRed(val) (val & 0b111) * 36
-#define ExtractGreen(val) ((val & 0b11100000) >> 5) * 36
-#define ExtractBlue(val) ((val & 0b111000000000) >> 9) * 36
-#define SetPalette(val,palette) (val & 0x0fff) | palette
 class Tilemap {
   public: 
     Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height) {
@@ -108,9 +112,95 @@ class MetaSelector {
   void addTile(MetaTile& tile) {
     tiles.push_back(tile);
   }
+ };
 
+Tilemap* initializeMap(size_t width, size_t height);
+class TileMapController {
+  public: 
+  Tilemap* map = nullptr;
+  size_t currentTile;
+  int tileState= 0;
+  int controlState; 
+  int horizontalTiles,verticalTiles;
+  bool isEmpty();
+  void initMap(int screenWidth, int screenHeight) {
+    map = initializeMap(screenWidth/TILE_SIZE, screenHeight/TILE_SIZE);
+  }
+  int getTileValueAt(int x, int y) {
+    if(x + y*map->width < map->data.size()) {
+      return map->data[x+y*map->width];
+    }
+    else {
+      return NO_TILE;
+    }
+  }
+  SDL_Texture* getSelectedTileTexture() {
+    return map->tiles[this->currentTile];
+  }
+  
+  void setTileAt(int metadata,int x, int y) {
+      if(x + y*map->width < map->data.size()) {
+        return;
+      } 
+      auto val = currentTile|metadata;
+      map->data[x+y*map->width] = val;
+  }
+
+  void choseNextTile() {
+    currentTile++;
+    if(map->tiles.size() <= currentTile ) {
+      currentTile = 0;
+    }
+  }
+  void chosePreviousTile() {
+    if(currentTile == 0) {
+      currentTile = map->tiles.size() -1;
+    }
+    else {
+      currentTile--;
+    }
+
+
+  }
+
+  void fill(int startPosition) {
+  assert(startPosition >= 0 && startPosition < map->data.size());
+  std::queue<int> to_visit;
+  std::set<int> visited;
+  to_visit.push(startPosition);
+  visited.insert(startPosition);
+  int originalTile = map->data[startPosition];
+  auto add = [&](int element) {
+    if ((element >= 0) && (element < map->data.size()) &&
+        (map->data[element] == originalTile)
+        && (visited.count(element) == 0)) {
+      to_visit.push(element);
+      visited.insert(element);
+    }
+  };
+  while (!to_visit.empty()) {
+    int currentPosition = to_visit.front();
+    to_visit.pop();
+    map->data[currentPosition] = currentTile|controlState;
+    add(currentPosition + 1);
+    add(currentPosition - 1);
+    add(currentPosition + horizontalTiles);
+    add(currentPosition - horizontalTiles);
+  }
+}
+  void setFlipHorizontal() {
+    controlState ^= Flip_Horizontally;
+  }
+  
+  void setFlipVertical() {
+
+    controlState ^= Flip_Vertically;
+  }
+
+  
 };
+
 TileMetaData getTileRenderdata(int value);
 
+void fill(int startPosition,Tilemap* map);
 SDL_Surface *createTileFromBinaryData(Tile data, Palette palette);
-Tilemap* initializeMap(size_t width, size_t height);
