@@ -2,18 +2,30 @@
 #include "SDL3/SDL_pixels.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
-static int screenWidth; 
-static int screenHeight;
-static int verticalTiles; 
-static int horizontalTiles;
-
-void intializeRender(int screenW, int screenH) {
-  screenWidth = screenW;
-  screenHeight = screenH;
-  verticalTiles = screenH/TILE_SIZE;
-  horizontalTiles = screenW/TILE_SIZE;
+void Renderer::intialize(SDL_Renderer* renderer,int screenWidth, int screenHeight) {
+  this->renderer = renderer;
+  this->screenWidth = screenWidth;
+  this->screenHeight = screenHeight;
+  this->verticalTiles = screenHeight/TILE_SIZE;
+  this->horizontalTiles = screenWidth/TILE_SIZE;
+  const float scale = 4.0f;
+  SDL_SetRenderScale(this->renderer, 4.0, 4.0);
 }
-void renderTiles(SDL_Renderer *renderer,Tilemap* map) {
+
+void Renderer::intializeRender(int screenW, int screenH) {
+  
+}
+void Renderer::renderScreen(SDL_Renderer* renderer, Tilemap* map) {
+  int w = 0, h = 0;
+  float x, y;
+  const float scale = 4.0f;
+  static SDL_FRect src_rect = {0, 0, TILE_SIZE, TILE_SIZE};
+  SDL_SetRenderScale(renderer, 4.0, 4.0);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
+}
+
+void Renderer::renderTiles(SDL_Renderer *renderer,Tilemap* map) {
   try {
   static SDL_FRect src_rect = {0, 0, TILE_SIZE, TILE_SIZE};
   SDL_FRect dst_rect = {0, 0, TILE_SIZE, TILE_SIZE};
@@ -45,7 +57,7 @@ void renderTiles(SDL_Renderer *renderer,Tilemap* map) {
 }
 
 
-void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
+void Renderer::renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
                          SDL_FRect dimensions) {
   int numberOfHorizontalTiles = dimensions.w / TILE_SIZE;
   int numberOfVerticalTiles = dimensions.h / TILE_SIZE;
@@ -72,9 +84,8 @@ void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
   SDL_RenderRect(renderer, &dimensions);
 }
-// best approach would probably be to get an SDL_texture from the metatile and dispaly that, this way you can actually scale stuffs
 
-void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap *map ,SDL_FRect dimensions) {
+void Renderer::renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap *map ,SDL_FRect dimensions) {
   SDL_SetRenderDrawColor(renderer, 0xf, 0xf, 0xf, 0x33);
   SDL_RenderFillRect(renderer,&dimensions );
   int currentX = 0;
@@ -92,7 +103,7 @@ void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilem
   }
 }
 
-void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y) {
+void Renderer::renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y) {
   SDL_FRect src_rect = {0,0,8,8};
   SDL_FRect dst_rect = {0,0,8,8};
   for(const auto& el : tile->subTiles) {
@@ -109,7 +120,7 @@ void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, in
   }
  
 }
-void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale) {
+void Renderer::renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale) {
   SDL_FRect src_rect = {0,0,8*scale,8*scale};
   SDL_FRect dst_rect = {0,0,8*scale,8*scale};
   for(const auto& el : tile->subTiles) {
@@ -127,7 +138,7 @@ void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, in
 }
 
 
-void renderInfo(SDL_Renderer *renderer, int x, int y) {
+void Renderer::renderInfo(SDL_Renderer *renderer, int x, int y) {
   int selectedTileNumber = 0;
   std::string xStr = std::to_string(x);
   std::string yStr = std::to_string(y);

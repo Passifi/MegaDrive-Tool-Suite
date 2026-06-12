@@ -47,97 +47,46 @@ void checkSelection(float rx, float ry);
 SDL_FRect processInputs(float rx, float ry);
 MetaTile createMetaTile();
 void setMetaTile(int id,int x, int y );
+SDL_AppResult handleKeyDown(SDL_Event* event);
 MetaSelector metaSelector;
 SDL_FRect tileSelectionRect = {(float)400, 000, 80, (float)screenHeight};
 static TileSelection possibleTiles;
+Renderer mainRenderer;
+TilemapBuilder tilemapBuilder;
+void initializeLogging();
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   std::string filePath = "build/catwartilesreduced.bin";
   if (argc > 1) {
     filePath = argv[1];
   }
-  logFile.open("log.txt", std::ios::out | std::ios::app);
-  logFile << std::unitbuf;
-  auto *old_cout = std::cout.rdbuf(logFile.rdbuf());
-  auto *old_clog = std::clog.rdbuf(logFile.rdbuf());
-  auto *old_cerr = std::cerr.rdbuf(logFile.rdbuf());
-  std::cout << std::unitbuf;
-  std::clog << std::unitbuf;
-  std::cerr << std::unitbuf;
+  initializeLogging();
   if (!SDL_CreateWindowAndRenderer("Hello World", screenWidth, screenHeight,
                                    SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
     SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
-  map =  initializeMap(screenWidth/8,screenHeight/8);
-  
-  intializeRender(screenWidth, screenHeight);
-  TileContainer container = loadTiles(filePath);
-  tilemapController.initMap(screenWidth,screenHeight); 
-  Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
 
-  for (auto el : container) {
+  tilemapController.initMap(screenWidth,screenHeight); 
+  mainRenderer.intialize(renderer,screenWidth,screenHeight);
+  TileContainer container = loadTiles(filePath);
+  Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
+   
+  for (auto el : container) { // refactor into create TilePalette, ColorPalette
     auto sur = createTileFromBinaryData(el, palettes.front());
-    map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur));
-    possibleTiles.tileTextures.push_back(map->tiles.back());
+    tilemapController.map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur)); 
+    possibleTiles.tileTextures.push_back(tilemapController.map->tiles.back());
   }
-  possibleTiles.tiles = container;
+    possibleTiles.tiles = container;
   return SDL_APP_CONTINUE;
 }
 
-SDL_AppResult handleKeyDown(SDL_Event* event) {
-  
-    if (event->key.key == SDLK_ESCAPE) {
-      return SDL_APP_SUCCESS;
-    } 
-    else if (event->key.key == SDLK_LEFT) {
-      if(cursorSettings.mode == DrawMeta) {
-          metaSelector.decerementIndex();
-      } 
-      else {
-        tilemapController.previousTile(); 
-      }
-    }
-    else if (event->key.key == SDLK_RIGHT) {
-      if(cursorSettings.mode == DrawMeta) {
-
-        metaSelector.incrementIndex();
-      } 
-      else {
-        tilemapController.nextTile();
-      }
-    
-    } else if (event->key.key == SDLK_F) {
-        cursorSettings.mode = Fill; 
-      
-    } else if (event->key.key == SDLK_F1) {
-      cursorSettings.mode = Draw;
-    } else if (event->key.key == SDLK_F2) {
-      cursorSettings.mode = Select;
-    } else if(event->key.key == SDLK_F3) {
-      cursorSettings.mode = DrawMeta;
-    } else if(event->key.key == SDLK_F4) {
-      cursorSettings.mode = SelectMeta;
-    } else if (event->key.key == SDLK_X) {
-      tilemapController.setFlipVertical();
-    } else if (event->key.key == SDLK_Z) {
-      tilemapController.setFlipHorizontal();
-    } else if(event->key.key == SDLK_S) {
-      saveTilemap(*map,"maptest.bin" );
-    } else if(event->key.key == SDLK_M) {
-      createMetaTile();
-    } else if(event->key.key == SDLK_T) {
-      setMetaTile(0, 0, 0);
-    }
-    return SDL_APP_SUCCESS;
-}
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   static float rx, ry;
   if (event->type == SDL_EVENT_KEY_DOWN) {
       return handleKeyDown(event);
     }
-
   if (event->type == SDL_EVENT_QUIT) {
     return SDL_APP_SUCCESS; /* end the program, reporting success to the OS. */
   }
@@ -167,12 +116,10 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
+  static float rx, ry;
   int w = 0, h = 0;
   float x, y;
-  const float scale = 4.0f;
-  static float rx, ry;
   static SDL_FRect src_rect = {0, 0, TILE_SIZE, TILE_SIZE};
-  SDL_SetRenderScale(renderer, 4.0, 4.0);
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
   SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
@@ -224,8 +171,7 @@ void checkSelection(float rx, float ry) {
     auto yOffset = ry - tileSelectionRect.y;
     int xValue = xOffset / TILE_SIZE;
     int yValue = yOffset / TILE_SIZE;
-    tilemapController.  
-    currentTile = xValue + yValue * selectionHorizontalTiles;
+    tilemapController.setTileAt(xValue, yValue);  
     cursorSettings.mode = Draw;
     return;
   }
@@ -305,4 +251,65 @@ void setMetaTile(int id,int x, int y ) {
     map->data[currentX + currentY*map->width] = el.value;
   }
 }
+
+SDL_AppResult handleKeyDown(SDL_Event* event) {
+  
+    if (event->key.key == SDLK_ESCAPE) {
+      return SDL_APP_SUCCESS;
+    } 
+    else if (event->key.key == SDLK_LEFT) {
+      if(cursorSettings.mode == DrawMeta) {
+          metaSelector.decerementIndex();
+      } 
+      else {
+        tilemapController.previousTile(); 
+      }
+    }
+    else if (event->key.key == SDLK_RIGHT) {
+      if(cursorSettings.mode == DrawMeta) {
+
+        metaSelector.incrementIndex();
+      } 
+      else {
+        tilemapController.nextTile();
+      }
+    
+    } else if (event->key.key == SDLK_F) {
+        cursorSettings.mode = Fill; 
+      
+    } else if (event->key.key == SDLK_F1) {
+      cursorSettings.mode = Draw;
+    } else if (event->key.key == SDLK_F2) {
+      cursorSettings.mode = Select;
+    } else if(event->key.key == SDLK_F3) {
+      cursorSettings.mode = DrawMeta;
+    } else if(event->key.key == SDLK_F4) {
+      cursorSettings.mode = SelectMeta;
+    } else if (event->key.key == SDLK_X) {
+      tilemapController.setFlipVertical();
+    } else if (event->key.key == SDLK_Z) {
+      tilemapController.setFlipHorizontal();
+    } else if(event->key.key == SDLK_S) {
+      saveTilemap(*map,"maptest.bin" );
+    } else if(event->key.key == SDLK_M) {
+      createMetaTile();
+    } else if(event->key.key == SDLK_T) {
+      setMetaTile(0, 0, 0);
+    }
+    return SDL_APP_SUCCESS;
+}
+
+void initializeLogging() {
+  logFile.open("log.txt", std::ios::out | std::ios::app);
+  logFile << std::unitbuf;
+  auto *old_cout = std::cout.rdbuf(logFile.rdbuf());
+  auto *old_clog = std::clog.rdbuf(logFile.rdbuf());
+  auto *old_cerr = std::cerr.rdbuf(logFile.rdbuf());
+  std::cout << std::unitbuf;
+  std::clog << std::unitbuf;
+  std::cerr << std::unitbuf;
+ 
+}
+
+
 

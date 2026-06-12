@@ -1,5 +1,13 @@
 #include "../include/Tiledata.h"
 
+
+  void TilemapBuilder::intializeTiles(std::string path) {
+    this->tilePalette = loadTiles(path);
+  }
+  void TilemapBuilder::initializePalettes(std::string path) {
+    this->palettes = loadPalettes(path);
+  }
+
 void MetaTile::addTile(int x, int y, int value) {
   this->subTiles.push_back({x,y,value});
 }
@@ -31,11 +39,6 @@ SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
 }
 
 Tilemap* initializeMap(size_t width, size_t height) {
-  mainMap = std::make_unique<Tilemap>(width,height);
-  for (int i = 0; i < mainMap->size; i++) {
-    mainMap->data[i] = NO_TILE;
-  }
-  return mainMap.get();
 }
 
 TileMetaData getTileRenderdata(int value) { // change so that all extracted info is returned

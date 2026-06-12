@@ -1,23 +1,29 @@
 #pragma once 
 #include "SDL3/SDL.h"
+#include "SDL3/SDL_render.h"
 #include <iostream>
 #include <string>
 #include "Tiledata.h"
-class Renderer {
-  int screenWidth;
-  int screenHeight;
-  float scaleX,scaleY;
-  //std::unique_ptr<SDL_Renderer> renderer = nullptr; 
 
-  void intialize();
+class Renderer {
+  public: 
+  int screenWidth; 
+  int screenHeight;
+  int verticalTiles; 
+  int horizontalTiles;
+
+  float scaleX,scaleY;
+  SDL_Renderer* renderer= nullptr ;
+  void intialize(SDL_Renderer* renderer,int screenWidth, int screenHeight);
+  void renderScreen(SDL_Renderer* renderer, Tilemap* map);
+  void intializeRender(int screenW, int screenH);
+  void renderTiles(SDL_Renderer *renderer,Tilemap* map);
+  void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
+                           SDL_FRect dimensions);
+  void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap*map ,SDL_FRect dimensions);
+  void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y);
+  void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale);
+  void renderInfo(SDL_Renderer *renderer, int x, int y);
   SDL_Renderer* getCurrentRenderer();
 };
-void intializeRender(int screenW, int screenH);
-void renderTiles(SDL_Renderer *renderer,Tilemap* map);
-void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
-                         SDL_FRect dimensions);
 
-void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap*map ,SDL_FRect dimensions);
-void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y);
-void renderMetatile(SDL_Renderer* renderer,Tilemap* map,MetaTile* tile,int x, int y,float scale);
-void renderInfo(SDL_Renderer *renderer, int x, int y);

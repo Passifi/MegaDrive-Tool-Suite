@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "Tiledata.h"
+using std::vector, std::array;
 struct TilemapHeader {
   uint32_t numberofTiles;
   uint32_t tilemapSize;
@@ -15,10 +16,6 @@ struct TilemapHeader {
   uint32_t metaTiledataSize;
   uint32_t extraHeaderInfoSize;
 };
-// PaletteSize * numberOfPalettes => start of tileData, tileSize * numberOfTiles
-// => startof tilemap
-
-using std::vector, std::array;
 class Tiledata {
 public:
   std::vector<vector<uint16_t>> palettes;
@@ -26,7 +23,7 @@ public:
 };
 
 Palettes loadPalettes(std::string path);
-TileContainer loadTiles(std::string path);
+TileContainer initializePalettes(std::string path);
 void saveTilemap(Tilemap& tilemap,std::string path);
 void saveTilemap(Tilemap& tilemap,std::vector<MetaTile>& metaTiles,std::string path);
 void loadTilemap(Tilemap& tilemap,std::string path);
