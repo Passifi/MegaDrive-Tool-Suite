@@ -85,29 +85,28 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   return SDL_APP_CONTINUE;
 }
 
-SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-  static float rx, ry;
-  if (event->type == SDL_EVENT_KEY_DOWN) {
+SDL_AppResult handleKeyDown(SDL_Event* event) {
+  
     if (event->key.key == SDLK_ESCAPE) {
       return SDL_APP_SUCCESS;
-    } else if (event->key.key == SDLK_LEFT) {
+    } 
+    else if (event->key.key == SDLK_LEFT) {
       if(cursorSettings.mode == DrawMeta) {
+          metaSelector.decerementIndex();
+      } 
+      else {
+        tilemapController.previousTile(); 
+      }
+    }
+    else if (event->key.key == SDLK_RIGHT) {
+      if(cursorSettings.mode == DrawMeta) {
+
         metaSelector.incrementIndex();
       } 
       else {
-      if (currentTile > 0)
-        currentTile--;
+        tilemapController.nextTile();
       }
-    } else if (event->key.key == SDLK_RIGHT) {
-      if(cursorSettings.mode == DrawMeta) {
-        metaSelector.decerementIndex();
-      }
-      else {
-      currentTile++;
-      if (currentTile >= map->tiles.size()) {
-        currentTile = map->tiles.size() - 1;
-      }
-      }
+    
     } else if (event->key.key == SDLK_F) {
         cursorSettings.mode = Fill; 
       
@@ -115,29 +114,29 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       cursorSettings.mode = Draw;
     } else if (event->key.key == SDLK_F2) {
       cursorSettings.mode = Select;
-    }
-    else if(event->key.key == SDLK_F3) {
+    } else if(event->key.key == SDLK_F3) {
       cursorSettings.mode = DrawMeta;
-    }
-    else if(event->key.key == SDLK_F4) {
+    } else if(event->key.key == SDLK_F4) {
       cursorSettings.mode = SelectMeta;
-    }
-    else if (event->key.key == SDLK_X) {
+    } else if (event->key.key == SDLK_X) {
       tilemapController.setFlipVertical();
-    }
-    else if (event->key.key == SDLK_Z) {
+    } else if (event->key.key == SDLK_Z) {
       tilemapController.setFlipHorizontal();
-    }
-    else if(event->key.key == SDLK_S) {
+    } else if(event->key.key == SDLK_S) {
       saveTilemap(*map,"maptest.bin" );
-    }
-    else if(event->key.key == SDLK_M) {
+    } else if(event->key.key == SDLK_M) {
       createMetaTile();
-    }
-    else if(event->key.key == SDLK_T) {
+    } else if(event->key.key == SDLK_T) {
       setMetaTile(0, 0, 0);
     }
-  }
+    return SDL_APP_SUCCESS;
+}
+
+SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
+  static float rx, ry;
+  if (event->type == SDL_EVENT_KEY_DOWN) {
+      return handleKeyDown(event);
+    }
 
   if (event->type == SDL_EVENT_QUIT) {
     return SDL_APP_SUCCESS; /* end the program, reporting success to the OS. */
@@ -179,7 +178,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
   auto org_dest = processInputs(rx, ry);
   auto dst_rect = org_dest;
-  renderTiles(renderer,map);
+  renderTiles(renderer,tilemapController.map);
   switch(cursorSettings.mode) {
     case Draw:
     case Fill:{
@@ -225,6 +224,7 @@ void checkSelection(float rx, float ry) {
     auto yOffset = ry - tileSelectionRect.y;
     int xValue = xOffset / TILE_SIZE;
     int yValue = yOffset / TILE_SIZE;
+    tilemapController.  
     currentTile = xValue + yValue * selectionHorizontalTiles;
     cursorSettings.mode = Draw;
     return;
@@ -255,13 +255,13 @@ SDL_FRect processInputs(float rx, float ry) {
   if (mouseState.mouseDown) {
     switch (cursorSettings.mode) {
     case Draw:
-      map->data[xSet + ySet * horizontalTiles] = (currentTile|ControlState);
+      tilemapController.setTileAt(xSet,ySet);
       break;
     case Select:
       checkSelection(rx, ry);
       break;
     case DrawMeta:
-      setMetaTile(metaIndex, alignedX, alignedY);
+      //setMetaTile(metaIndex, alignedX, alignedY);
       break;
     case Fill:
       int xPos, yPos;

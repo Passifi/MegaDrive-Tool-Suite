@@ -38,8 +38,6 @@ struct TileMetaData {
   int tileIndex;
 };
 
-
-
 class TileSelection {
 public:
   TileContainer tiles;
@@ -49,7 +47,6 @@ public:
 class Tilemap {
   public: 
     Tilemap(size_t width, size_t height) : width(width), height(height),size(width*height), data(width*height) {
-    
     }
     ~Tilemap() {
     }
@@ -138,29 +135,37 @@ class TileMapController {
     return map->tiles[this->currentTile];
   }
   
-  void setTileAt(int metadata,int x, int y) {
+  void setTileAt(int x, int y) {
       if(x + y*map->width < map->data.size()) {
         return;
       } 
-      auto val = currentTile|metadata;
+      auto val = currentTile|controlState;
       map->data[x+y*map->width] = val;
   }
-
-  void choseNextTile() {
+  void setIndex(int x,int y ) {
+    auto nextIndex = x + y* this->horizontalTiles;
+    if(nextIndex < map->size) {
+      currentTile = nextIndex;
+    }
+  }
+  void setIndex(int index) {
+    if(index < map->size) {
+      currentTile = index; 
+    }
+  }
+  void nextTile() {
     currentTile++;
     if(map->tiles.size() <= currentTile ) {
       currentTile = 0;
     }
   }
-  void chosePreviousTile() {
+  void previousTile() {
     if(currentTile == 0) {
       currentTile = map->tiles.size() -1;
     }
     else {
       currentTile--;
     }
-
-
   }
 
   void fill(int startPosition) {

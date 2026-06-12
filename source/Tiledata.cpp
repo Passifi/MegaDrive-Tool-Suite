@@ -5,12 +5,9 @@ void MetaTile::addTile(int x, int y, int value) {
 }
 static std::unique_ptr<Tilemap>  mainMap = nullptr;
 SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
-
   auto surface = SDL_CreateSurface(8, 8, SDL_PIXELFORMAT_RGBA8888);
   for (int y = 0; y < 8; y++) {
-
     Uint8 *row = (Uint8 *)surface->pixels + y * surface->pitch;
-
     for (int x = 0; x < 4; x++) {
       auto byte = (uint8_t)data[y * 4 + x];
       auto colorData1 = palette[(byte & 0xf0) >> 4];
@@ -23,7 +20,6 @@ SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
       red = ExtractRed(colorData2);
       green = ExtractGreen(colorData2);
       blue = ExtractBlue(colorData2);
-
       uint32_t color2 = SDL_MapSurfaceRGBA(surface, red, green, blue, 0xff);
       Uint32 *pixel1 = (Uint32 *)(row + x * 2 * 4);
       Uint32 *pixel2 = (Uint32 *)(row + (x * 2 + 1) * 4);
@@ -31,12 +27,10 @@ SDL_Surface *createTileFromBinaryData(Tile data, Palette palette) {
       *pixel2 = color2;
     }
   }
-
   return surface;
 }
 
 Tilemap* initializeMap(size_t width, size_t height) {
-
   mainMap = std::make_unique<Tilemap>(width,height);
   for (int i = 0; i < mainMap->size; i++) {
     mainMap->data[i] = NO_TILE;
@@ -54,16 +48,10 @@ TileMetaData getTileRenderdata(int value) { // change so that all extracted info
         if(value&Flip_Vertically) {
           flip = (SDL_FlipMode)(SDL_FLIP_VERTICAL|flip);
         }
-        int tileIndex = value&0x000003ff;
+    int tileIndex = value&0x000003ff;
     metaData.tileIndex = tileIndex;
     metaData.flipped = flip;
     metaData.priority = value&0x8000;
     metaData.paletteNo = (value&0x6000)>>13;
     return metaData; 
 }
-
-
-
-
-
-
