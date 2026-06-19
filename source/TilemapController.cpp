@@ -15,7 +15,7 @@ void TilemapController::initMap(int screenWidth, int screenHeight) {
   SDL_Texture* TilemapController::getSelectedTileTexture() {
     return map->tiles[this->currentTile];
   }
-  
+
   void TilemapController::setTileAt(int x, int y) {
       if(x + y*map->width < map->data.size()) {
         return;

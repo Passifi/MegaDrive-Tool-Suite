@@ -23,7 +23,7 @@ public:
 };
 
 Palettes loadPalettes(std::string path);
-TileContainer initializePalettes(std::string path);
+TileContainer loadTiles(std::string path);
 void saveTilemap(Tilemap& tilemap,std::string path);
 void saveTilemap(Tilemap& tilemap,std::vector<MetaTile>& metaTiles,std::string path);
 void loadTilemap(Tilemap& tilemap,std::string path);

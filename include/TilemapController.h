@@ -7,6 +7,9 @@ class TilemapController {
   int tileState= 0;
   int controlState; 
   int horizontalTiles,verticalTiles;
+
+  Palettes palettes; 
+  TileSelection tilePalettes; 
   bool isEmpty();
   void initMap(int screenWidth, int screenHeight);
   int getTileValueAt(int x, int y);

@@ -9,6 +9,7 @@
 #include <assert.h>
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
+#include "TilemapController.h"
 #include "fileIO.h"
 #include <memory>
 #define NO_TILE -1
@@ -114,12 +115,21 @@ class MetaSelector {
  };
 
 Tilemap* initializeMap(size_t width, size_t height);
+
+
+
 class TilemapBuilder {
   public:
-  TileContainer tilePalette;
+  TilemapBuilder(SDL_Renderer* renderer, TilemapController& controller) : renderer(renderer), map(controller.map.get()) {}
+  TileContainer container; 
+  TileSelection tilePalette; 
   Palettes palettes;
-  void intializeTiles(std::string path);
-  void loadPalettes(std::string path);
+  SDL_Renderer* renderer = nullptr;
+  Tilemap* map = nullptr; 
+
+  void addTiles(std::string path);
+  void loadPalette(std::string path);
+  void intializeTiles();
 };
 
 TileMetaData getTileRenderdata(int value);

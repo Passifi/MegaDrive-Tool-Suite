@@ -1,13 +1,5 @@
 #include "../include/Tiledata.h"
 
-
-  void TilemapBuilder::intializeTiles(std::string path) {
-    this->tilePalette = loadTiles(path);
-  }
-  void TilemapBuilder::initializePalettes(std::string path) {
-    this->palettes = loadPalettes(path);
-  }
-
 void MetaTile::addTile(int x, int y, int value) {
   this->subTiles.push_back({x,y,value});
 }
@@ -58,3 +50,17 @@ TileMetaData getTileRenderdata(int value) { // change so that all extracted info
     metaData.paletteNo = (value&0x6000)>>13;
     return metaData; 
 }
+
+ void TilemapBuilder::addTiles(std::string path) {
+    this->container = loadTiles(path);
+}
+  void TilemapBuilder::loadPalette(std::string path) {
+    this->palettes = loadPalettes(path);
+  }
+  void TilemapBuilder::intializeTiles() {
+     for (auto el : this->container) { // refactor into create TilePalette, ColorPalette
+    auto sur = createTileFromBinaryData(el, palettes.front());
+    map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur)); 
+    tilePalette.tileTextures.push_back(map->tiles.back());
+  }    
+  }

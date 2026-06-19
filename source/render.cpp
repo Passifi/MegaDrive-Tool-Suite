@@ -25,7 +25,7 @@ void Renderer::renderScreen(SDL_Renderer* renderer, Tilemap* map) {
   SDL_RenderClear(renderer);
 }
 
-void Renderer::renderTiles(SDL_Renderer *renderer,Tilemap* map) {
+void Renderer::renderTiles(Tilemap* map) {
   try {
   static SDL_FRect src_rect = {0, 0, TILE_SIZE, TILE_SIZE};
   SDL_FRect dst_rect = {0, 0, TILE_SIZE, TILE_SIZE};

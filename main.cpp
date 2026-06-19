@@ -8,6 +8,7 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_surface.h"
+#include "input.h"
 #include "fileIO.h"
 #include <cassert>
 #include <cstdint>
@@ -22,24 +23,19 @@
 #include "include/render.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-struct MouseState {
-  bool mouseDown = false;
-  bool dragging = false;
-  SDL_FPoint startPosition;
-};
+
 int ControlState = 0;
 MouseState mouseState;
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
+static Renderer mainRenderer;
 static float mouseX, mouseY = 4.0;
 static int screenWidth = 800;
 static int screenHeight = 600;
 static int horizontalTiles = screenWidth / TILE_SIZE;
 static int verticalTiles = screenHeight / TILE_SIZE;
-TileMapController tilemapController;
+TilemapController tilemapController;
 static Tilemap* map=nullptr;
-static CursorSettings cursorSettings;
-static bool mousedown = false;
 static SDL_FRect selectionRect = {0, 0, 8, 8};
 static std::ofstream logFile;
 static bool isOverTileSelection = false;
@@ -66,18 +62,15 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
-
+  mainRenderer.intialize(renderer,screenWidth,screenHeight);
   tilemapController.initMap(screenWidth,screenHeight); 
   mainRenderer.intialize(renderer,screenWidth,screenHeight);
-  TileContainer container = loadTiles(filePath);
-  Palettes palettes = loadPalettes("build/catwartilesreduced_palette.bin");
-   
-  for (auto el : container) { // refactor into create TilePalette, ColorPalette
-    auto sur = createTileFromBinaryData(el, palettes.front());
-    tilemapController.map->tiles.push_back(SDL_CreateTextureFromSurface(renderer, sur)); 
-    possibleTiles.tileTextures.push_back(tilemapController.map->tiles.back());
-  }
-    possibleTiles.tiles = container;
+  TilemapBuilder builder(renderer,tilemapController);
+  builder.addTiles(filePath);  
+  builder.loadPalette("build/catwartilesreduced_palette.bin");
+  builder.intializeTiles();
+  tilemapController.tilePalettes = builder.tilePalette;
+  tilemapController.palettes = builder.palettes;
   return SDL_APP_CONTINUE;
 }
 
@@ -92,22 +85,21 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   }
   if (event->type == SDL_EVENT_MOUSE_MOTION) {
     SDL_GetMouseState(&mouseX, &mouseY);
-    if (!mousedown) {
+    if (!mouseState.mouseDown) {
       SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
     } else {
       mouseState.dragging = true;
     }
   }
   if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-    mousedown = true;
-    mouseState.mouseDown = true;
+    
     SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
+    mouseState.mouseDown = true;
     mouseState.startPosition = {rx, ry};
     selectionRect.x = (int)(rx/TILE_SIZE)*TILE_SIZE;
     selectionRect.y = (int)(ry/TILE_SIZE)*TILE_SIZE;
     }
   if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
-    mousedown = false;
     mouseState.mouseDown = false;
     mouseState.dragging = false;
   }
@@ -125,7 +117,8 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   SDL_RenderCoordinatesFromWindow(renderer, mouseX, mouseY, &rx, &ry);
   auto org_dest = processInputs(rx, ry);
   auto dst_rect = org_dest;
-  renderTiles(renderer,tilemapController.map);
+  mainRenderer.renderTiles(tilemapController.map.get());
+  //inputHandler. 
   switch(cursorSettings.mode) {
     case Draw:
     case Fill:{
@@ -140,18 +133,18 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
       break;
                }
     case DrawMeta: 
-      renderMetatile(renderer,map,&metaSelector.getTile() ,org_dest.x/TILE_SIZE, org_dest.y/TILE_SIZE);  
+      //renderMetatile(renderer,map,&metaSelector.getTile() ,org_dest.x/TILE_SIZE, org_dest.y/TILE_SIZE);  
       break;
     case Select:
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0x43);
     SDL_RenderRect(renderer, &selectionRect);
-    renderTileSelection(renderer, possibleTiles, tileSelectionRect);
+    mainRenderer.renderTileSelection(renderer, possibleTiles, tileSelectionRect);
     case SelectMeta:
-      renderMetaTileSelection(renderer, metaSelector,nullptr, tileSelectionRect);
+      //renderMetaTileSelection(renderer, metaSelector,nullptr, tileSelectionRect);
     default:
       break;
   }
-  renderInfo(renderer, rx, ry);
+  mainRenderer.renderInfo(renderer, rx, ry);
   SDL_RenderPresent(renderer);
   return SDL_APP_CONTINUE;
 }

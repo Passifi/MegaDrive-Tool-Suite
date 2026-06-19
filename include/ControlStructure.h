@@ -1,4 +1,4 @@
-enum CursorMode {
+enum InputMode {
   Draw,
   DrawMeta,
   Fill,
@@ -7,7 +7,8 @@ enum CursorMode {
   Erase
 };
 struct CursorSettings {
-  CursorMode mode = Draw;  
+  InputMode
+ mode = Draw;  
 };
 
 

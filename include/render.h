@@ -17,7 +17,7 @@ class Renderer {
   void intialize(SDL_Renderer* renderer,int screenWidth, int screenHeight);
   void renderScreen(SDL_Renderer* renderer, Tilemap* map);
   void intializeRender(int screenW, int screenH);
-  void renderTiles(SDL_Renderer *renderer,Tilemap* map);
+  void renderTiles(Tilemap* map);
   void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
                            SDL_FRect dimensions);
   void renderMetaTileSelection(SDL_Renderer *renderer,MetaSelector& selector,Tilemap*map ,SDL_FRect dimensions);
