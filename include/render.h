@@ -14,9 +14,12 @@ class Renderer {
 
   float scaleX,scaleY;
   SDL_Renderer* renderer= nullptr ;
-  void intialize(SDL_Renderer* renderer,int screenWidth, int screenHeight);
+  SDL_Window* window = nullptr;
+  bool intialize(int screenWidth, int screenHeight);
+  void render();
   void renderScreen(SDL_Renderer* renderer, Tilemap* map);
   void intializeRender(int screenW, int screenH);
+  void clearScreen();
   void renderTiles(Tilemap* map);
   void renderTileSelection(SDL_Renderer *renderer, TileSelection &selection,
                            SDL_FRect dimensions);

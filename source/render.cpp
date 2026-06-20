@@ -2,18 +2,36 @@
 #include "SDL3/SDL_pixels.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
-void Renderer::intialize(SDL_Renderer* renderer,int screenWidth, int screenHeight) {
-  this->renderer = renderer;
+bool Renderer::intialize(int screenWidth, int screenHeight) {
+  
+  if(!SDL_CreateWindowAndRenderer("Hello World", screenWidth, screenHeight,
+                                   SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
+                                    return false;
+                                   }
   this->screenWidth = screenWidth;
   this->screenHeight = screenHeight;
   this->verticalTiles = screenHeight/TILE_SIZE;
   this->horizontalTiles = screenWidth/TILE_SIZE;
   const float scale = 4.0f;
   SDL_SetRenderScale(this->renderer, 4.0, 4.0);
+  return true;
 }
 
 void Renderer::intializeRender(int screenW, int screenH) {
   
+}
+
+
+  void Renderer::render() {
+      this->clearScreen();
+      this->renderTiles(nullptr);
+      SDL_RenderPresent(renderer);
+  }
+
+void Renderer::clearScreen() {
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
+ 
 }
 void Renderer::renderScreen(SDL_Renderer* renderer, Tilemap* map) {
   int w = 0, h = 0;

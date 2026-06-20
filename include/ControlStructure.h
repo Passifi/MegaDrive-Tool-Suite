@@ -7,8 +7,7 @@ enum InputMode {
   Erase
 };
 struct CursorSettings {
-  InputMode
- mode = Draw;  
+  InputMode mode = InputMode::Draw;  
 };
 
 

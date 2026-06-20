@@ -18,6 +18,7 @@ PRIVATE
   source/Tiledata.cpp
   source/fileIO.cpp
   source/render.cpp
+  source/TilemapController.cpp
 PUBLIC
   FILE_SET HEADERS
   BASE_DIRS 
@@ -26,6 +27,9 @@ PUBLIC
     include/Tiledata.h
     include/ControlStructure.h
     include/render.h
+    include/fileIO.h
+    include/input.h
+    include/TilemapController.h
   )
 
 # Link to the actual SDL3 library.
