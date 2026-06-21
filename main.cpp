@@ -22,6 +22,7 @@
 #include "include/Tiledata.h"
 #include "include/render.h"
 #include "include/input.h"
+#include "include/AppState.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -33,9 +34,7 @@ EventHandler eventHandler;
 TilemapController tilemapController;
 static std::ofstream logFile;
 SDL_AppResult handleKeyDown(SDL_Event* event);
-MetaSelector metaSelector;
 SDL_FRect tileSelectionRect = {(float)400, 000, 80, (float)screenHeight};
-static TileSelection possibleTiles;
 Renderer mainRenderer;
 TilemapBuilder tilemapBuilder;
 void initializeLogging();
@@ -74,6 +73,8 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
   eventHandler.handleEvents(&inputHandler.events);
+  tilemapController.command(&eventHandler);
+
   mainRenderer.render(); 
   return SDL_APP_CONTINUE;
 }

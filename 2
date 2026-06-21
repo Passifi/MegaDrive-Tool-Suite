@@ -36,13 +36,18 @@ struct Tile {
   SDL_Texture* tile_texture;
 };
 using Palette = std::array<uint16_t, PaletteSize>;
-using Tiles = std::vector<Tile>;
+using TileContainer = std::vector<Tile>;
 using Palettes = std::vector<Palette>;
 struct TileMetaData {
   SDL_FlipMode flipped = SDL_FLIP_NONE;
   uint8_t paletteNo;
   bool priority;
   int tileIndex;
+};
+
+class TilePalette {
+public:
+  TileContainer tiles;
 };
 
 class Tilemap {
@@ -53,23 +58,66 @@ class Tilemap {
     }
   size_t width,height,size;
   std::vector<int> data;
+  std::vector<Tile> tiles;
   private:
   };
 
 class MetaTile {
   public:
     size_t width,height;
-    Tiles tiles; 
+    std::vector<Tile> tiles; 
     void addTile(int x, int y, int value);
-    SDL_Texture* texture;
+    SDL_Texture* texture = nullptr;
 };
+class MetaSelector { 
+  public: 
+  std::vector<MetaTile> tiles;
+  size_t metaIndex = 0;
+  MetaSelector(std::vector<MetaTile>& tiles) : tiles(tiles) {
+  }
+  MetaSelector() {
+        
+  }
+  bool isEmpty() {
+    return tiles.size() == 0;
+  }
+  void incrementIndex() { 
+    if(metaIndex < tiles.size()-1)
+    this->metaIndex++;
+    else 
+      this->metaIndex = 0;
+  }
+  void decerementIndex() {
+    if(metaIndex > 0) 
+      this->metaIndex--;
+    else 
+      this->metaIndex = tiles.size()-1;
+  }
+  void setIndex(size_t position) {
+    if(position < tiles.size()) {
+      metaIndex = position;
+    }
+  }
+  MetaTile& getTile() {
+    return tiles[metaIndex];
+  } 
+  MetaTile* getTileAt(int index) {
+    return &tiles[index];
+  }
+
+  void addTile(MetaTile& tile) {
+    tiles.push_back(tile);
+  }
+ };
+
 Tilemap* initializeMap(size_t width, size_t height);
 
 
 class TilemapBuilder {
   public:
   TilemapBuilder(SDL_Renderer* renderer, TilemapController& controller) : renderer(renderer), map(controller.map.get()) {}
-  Tiles referenceTiles;
+  TileContainer container; 
+  TileSelection tilePalette; 
   Palettes palettes;
   SDL_Renderer* renderer = nullptr;
   Tilemap* map = nullptr; 

@@ -37,7 +37,7 @@ void loadTilemap(Tilemap& tilemap,std::string path) {
      
       int index = 0;
       while(index*TileSize < metaData.size_referenceTiles)  {
-        file.read(reinterpret_cast<char*>(tiles[index].data()),tiles[index].size());
+        file.read(reinterpret_cast<char*>(tiles[index].tiledata.data()),tiles[index].tiledata.size());
         index++; 
       }
     }
@@ -94,20 +94,9 @@ void saveTilemap(Tilemap& tilemap,std::vector<MetaTile>& metaTiles, std::string 
       uint16_t tileID = static_cast<uint16_t>(el+1);
       file.write(reinterpret_cast<const char*>(&tileID),2);
     }  
-    for(auto& el : metaTiles) {
-    for(auto& subEl: el.subTiles) {
 
     
-      uint32_t value = static_cast<uint16_t>(subEl.value);
-      uint16_t x,y;
-      x = subEl.x;
-      y = subEl.y;
-      file.write(reinterpret_cast<const char*>(&value),4);
-      file.write(reinterpret_cast<const char*>(&x),2);
-      file.write(reinterpret_cast<const char*>(&y),2);
 
-    }
-    } 
   }
   file.close();
 }
@@ -140,17 +129,17 @@ Palettes loadPalettes(std::string path) {
   return result;
 }
 
-TileContainer loadTiles(std::string path) {
+Tiles loadTiles(std::string path) {
   std::ifstream file;
-  TileContainer data;
+  Tiles tiles;
   file.open(path, std::ios::binary | std::ios::in);
   if (file.is_open()) {
     while (true) {
       char current;
       Tile tile;
-      file.read(reinterpret_cast<char *>(tile.data()), 32);
+      file.read(reinterpret_cast<char *>(tile.tiledata.data()), 32);
       if (file.gcount() == TileSize) {
-        data.push_back(std::move(tile));
+        tiles.push_back(std::move(tile));
       } else {
         if (file.gcount() != 0) {
           std::cout << "Incomplete tile at the end of the file\n";
@@ -161,5 +150,5 @@ TileContainer loadTiles(std::string path) {
   } else {
     std::cout << "Couldn't open file\n";
   }
-  return data;
+  return tiles;
 }
