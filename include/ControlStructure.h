@@ -1,3 +1,4 @@
+#pragma once
 enum InputMode {
   Draw,
   DrawMeta,

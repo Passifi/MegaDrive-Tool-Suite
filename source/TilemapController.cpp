@@ -14,7 +14,11 @@ void TilemapController::initMap(int screenWidth, int screenHeight) {
     }
   }
   SDL_Texture* TilemapController::getSelectedTileTexture() {
-    return map->tiles[this->currentTile];
+    return tilePalette[this->currentTile].tile_texture;
+  }
+
+  SDL_Texture* TilemapController::getTextureOfTileAtIndex(int index) {
+    return tilePalette[index].tile_texture;
   }
 
   void TilemapController::setTileAt(int x, int y) {
@@ -37,13 +41,13 @@ void TilemapController::initMap(int screenWidth, int screenHeight) {
   }
   void TilemapController::nextTile() {
     currentTile++;
-    if(map->tiles.size() <= currentTile ) {
+    if(tilePalette.size() <= currentTile ) {
       currentTile = 0;
     }
   }
   void TilemapController::previousTile() {
     if(currentTile == 0) {
-      currentTile = map->tiles.size() -1;
+      currentTile =tilePalette.size() -1;
     }
     else {
       currentTile--;

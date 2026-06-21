@@ -351,6 +351,7 @@ set(OLD_GLOB
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_keysym_to_keycode.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_keysym_to_scancode.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_mouse.c"
+  "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_notificationevents.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_pen.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_quit.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_scancode_tables.c"
@@ -377,6 +378,7 @@ set(OLD_GLOB
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_keysym_to_keycode_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_keysym_to_scancode_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_mouse_c.h"
+  "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_notificationevents_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_pen_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_scancode_tables_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/events/SDL_touch_c.h"
@@ -881,6 +883,36 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
 endif()
 
 # both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Code/MegadriveTools/vendored/SDL/src/notification/*.c")
+set(OLD_GLOB
+  "C:/Code/MegadriveTools/vendored/SDL/src/notification/SDL_notification.c"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+endif()
+
+# both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Code/MegadriveTools/vendored/SDL/src/notification/*.h")
+set(OLD_GLOB
+  "C:/Code/MegadriveTools/vendored/SDL/src/notification/SDL_notification_c.h"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+endif()
+
+# both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Code/MegadriveTools/vendored/SDL/src/notification/windows/*.c")
+set(OLD_GLOB
+  "C:/Code/MegadriveTools/vendored/SDL/src/notification/windows/SDL_windowsnotification.c"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "C:/Code/MegadriveTools/build/CMakeFiles/cmake.verify_globs")
+endif()
+
+# both_sources at vendored/SDL/cmake/sdlcommands.cmake:29 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Code/MegadriveTools/vendored/SDL/src/power/*.c")
 set(OLD_GLOB
   "C:/Code/MegadriveTools/vendored/SDL/src/power/SDL_power.c"
@@ -959,6 +991,7 @@ set(OLD_GLOB
   "C:/Code/MegadriveTools/vendored/SDL/src/render/ngage/SDL_render_ngage.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengl/SDL_render_gl.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengl/SDL_shaders_gl.c"
+  "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles/SDL_render_gles.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles2/SDL_render_gles2.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles2/SDL_shaders_gles2.c"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/ps2/SDL_render_ps2.c"
@@ -1016,6 +1049,7 @@ set(OLD_GLOB
   "C:/Code/MegadriveTools/vendored/SDL/src/render/ngage/SDL_render_ngage_c.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengl/SDL_glfuncs.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengl/SDL_shaders_gl.h"
+  "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles/SDL_glesfuncs.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles2/SDL_gles2funcs.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/opengles2/SDL_shaders_gles2.h"
   "C:/Code/MegadriveTools/vendored/SDL/src/render/psp/SDL_render_psp_c.h"

@@ -26,17 +26,9 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-static Renderer mainRenderer;
-static int screenWidth = 800;
-static int screenHeight = 600;
-InputHandler inputHandler;
-EventHandler eventHandler;
-TilemapController tilemapController;
 static std::ofstream logFile;
 SDL_AppResult handleKeyDown(SDL_Event* event);
-SDL_FRect tileSelectionRect = {(float)400, 000, 80, (float)screenHeight};
-Renderer mainRenderer;
-TilemapBuilder tilemapBuilder;
+App app;
 void initializeLogging();
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
@@ -45,25 +37,13 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     filePath = argv[1];
   }
   initializeLogging();
-  if(!mainRenderer.intialize(screenWidth,screenHeight)) {
-    SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
-    return SDL_APP_FAILURE;
-
-  }
-  tilemapController.initMap(screenWidth,screenHeight); 
-  TilemapBuilder builder(mainRenderer.renderer,tilemapController);
-  builder.addTiles(filePath);  
-  builder.loadPalette("build/catwartilesreduced_palette.bin");
-  builder.intializeTiles();
-  tilemapController.tilePalettes = builder.tilePalette;
-  tilemapController.palettes = builder.palettes;
+  app.initalize();
   return SDL_APP_CONTINUE;
 }
 
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-
-  inputHandler.registerInputs(event);
+  app.inputHandler.registerInputs(event);
   if (event->type == SDL_EVENT_QUIT) {
     return SDL_APP_SUCCESS; /* end the program, reporting success to the OS. */
   }
@@ -72,10 +52,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-  eventHandler.handleEvents(&inputHandler.events);
-  tilemapController.command(&eventHandler);
-
-  mainRenderer.render(); 
+  app.iterate(); 
   return SDL_APP_CONTINUE;
 }
 

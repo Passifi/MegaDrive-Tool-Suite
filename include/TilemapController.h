@@ -9,10 +9,11 @@ class TilemapController {
   int controlState; 
   int horizontalTiles,verticalTiles;
   Palettes palettes; 
-  TilePalette tilePalettes; 
+  Tiles tilePalette; 
   bool isEmpty();
   void initMap(int screenWidth, int screenHeight);
   int getTileValueAt(int x, int y);
+  SDL_Texture* getTextureOfTileAtIndex(int index);
   SDL_Texture* getSelectedTileTexture();  
   void command(EventHandler* eventHandler); 
   void setTileAt(int x, int y);  
@@ -23,4 +24,5 @@ class TilemapController {
   void fill(int startPosition); 
   void setFlipHorizontal(); 
   void setFlipVertical();
+  
 };

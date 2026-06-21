@@ -483,17 +483,20 @@ SDL_JOYSTICK:BOOL=ON
 //Use KMS DRM video driver
 SDL_KMSDRM:BOOL=OFF
 
+//Build a lean SDL library with reduced graphics functionality
+SDL_LEAN_AND_MEAN:BOOL=OFF
+
 //Use the system C library
 SDL_LIBC:BOOL=ON
 
 //Prefer iconv() from libiconv, if available, over libc version
 SDL_LIBICONV:BOOL=OFF
 
-//Enable libudev support
-SDL_LIBUDEV:BOOL=ON
-
 //Use MMX assembly routines
 SDL_MMX:BOOL=ON
+
+//Enable the Notification subsystem
+SDL_NOTIFICATION:BOOL=ON
 
 //Use offscreen video driver
 SDL_OFFSCREEN:BOOL=ON
@@ -907,6 +910,8 @@ HAVE_TPCSHRD_H:INTERNAL=1
 HAVE_WIN32_CC:INTERNAL=1
 //Test HAVE_WINDOWS_GAMING_INPUT_H
 HAVE_WINDOWS_GAMING_INPUT_H:INTERNAL=1
+//Have include Windows.ui.notifications.h
+HAVE_WINDOWS_UI_NOTIFICATIONS_H:INTERNAL=1
 //Test HAVE_WL_VERSION_SCRIPT
 HAVE_WL_VERSION_SCRIPT:INTERNAL=1
 //Test HAVE_XINPUT_H
@@ -1143,6 +1148,12 @@ LIBC_HAS_WCSNLEN:INTERNAL=1
 LIBC_HAS_WCSSTR:INTERNAL=1
 //Have symbol wcstol
 LIBC_HAS_WCSTOL:INTERNAL=1
+//Have symbol wcstoll
+LIBC_HAS_WCSTOLL:INTERNAL=1
+//Have symbol wcstoul
+LIBC_HAS_WCSTOUL:INTERNAL=1
+//Have symbol wcstoull
+LIBC_HAS_WCSTOULL:INTERNAL=1
 //Have symbol _copysign
 LIBC_HAS__COPYSIGN:INTERNAL=1
 //Have symbol _Exit
@@ -1206,6 +1217,8 @@ SDL_CHECK_REQUIRED_INCLUDES-ADVANCED:INTERNAL=1
 SDL_CHECK_REQUIRED_LINK_OPTIONS-ADVANCED:INTERNAL=1
 //Result of TRY_COMPILE
 SDL_CPU_CHECK_ALL:INTERNAL=TRUE
+//Enable libudev support
+SDL_LIBUDEV:INTERNAL=ON
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/hello
 __pkg_config_checked_PC_LibUSB:INTERNAL=1

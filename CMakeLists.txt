@@ -19,6 +19,8 @@ PRIVATE
   source/fileIO.cpp
   source/render.cpp
   source/TilemapController.cpp
+  source/AppState.cpp
+  source/input.cpp
 PUBLIC
   FILE_SET HEADERS
   BASE_DIRS 

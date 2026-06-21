@@ -92,6 +92,9 @@
 #define HAVE_WCSCMP 1
 #define HAVE_WCSNCMP 1
 #define HAVE_WCSTOL 1
+#define HAVE_WCSTOLL 1
+#define HAVE_WCSTOUL 1
+#define HAVE_WCSTOULL 1
 #define HAVE_STRLEN 1
 #define HAVE_STRNLEN 1
 /* #undef HAVE_STRLCPY */
@@ -107,7 +110,6 @@
 #define HAVE_STRTOK_R 1
 #define HAVE_ITOA 1
 #define HAVE__LTOA 1
-/* #undef HAVE__UITOA */
 #define HAVE__ULTOA 1
 #define HAVE_STRTOL 1
 #define HAVE_STRTOUL 1
@@ -229,6 +231,7 @@
 #define HAVE_XINPUT_H 1
 #define HAVE_WINDOWS_GAMING_INPUT_H 1
 /* #undef HAVE_GAMEINPUT_H */
+/* #undef SDL_GAMEINPUT_DYNAMIC */
 #define HAVE_DXGI_H 1
 #define HAVE_DXGI1_5_H 1
 #define HAVE_DXGI1_6_H 1
@@ -462,6 +465,7 @@
 /* #undef SDL_VIDEO_RENDER_METAL */
 #define SDL_VIDEO_RENDER_VULKAN 1
 #define SDL_VIDEO_RENDER_OGL 1
+/* #undef SDL_VIDEO_RENDER_OGL_ES */
 #define SDL_VIDEO_RENDER_OGL_ES2 1
 /* #undef SDL_VIDEO_RENDER_NGAGE */
 /* #undef SDL_VIDEO_RENDER_PS2 */
@@ -625,6 +629,7 @@ typedef unsigned int uintptr_t;
 #define SDL_DISABLE_LSX 1
 #define SDL_DISABLE_LASX 1
 #define SDL_DISABLE_NEON 1
+#define SDL_DISABLE_SVE2 1
 
 #ifdef SDL_PLATFORM_PRIVATE
 #include "SDL_end_config_private.h"

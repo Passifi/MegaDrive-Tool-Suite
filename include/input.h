@@ -1,7 +1,8 @@
 #pragma once
 #include "ControlStructure.h"
-#include <SDL_rect.h>
+#include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_events.h"
+#include "SDL3/SDL_render.h"
 #include <stack>
 #include <map>
 enum EventType {

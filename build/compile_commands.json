@@ -31,6 +31,24 @@
 },
 {
   "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\source\\TilemapController.cpp.obj -c C:\\Code\\MegadriveTools\\source\\TilemapController.cpp",
+  "file": "C:\\Code\\MegadriveTools\\source\\TilemapController.cpp",
+  "output": "CMakeFiles\\megaTile.dir\\source\\TilemapController.cpp.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\source\\AppState.cpp.obj -c C:\\Code\\MegadriveTools\\source\\AppState.cpp",
+  "file": "C:\\Code\\MegadriveTools\\source\\AppState.cpp",
+  "output": "CMakeFiles\\megaTile.dir\\source\\AppState.cpp.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -IC:/Code/MegadriveTools/include -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -o CMakeFiles\\megaTile.dir\\source\\input.cpp.obj -c C:\\Code\\MegadriveTools\\source\\input.cpp",
+  "file": "C:\\Code\\MegadriveTools\\source\\input.cpp",
+  "output": "CMakeFiles\\megaTile.dir\\source\\input.cpp.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
   "command": "C:\\msys64\\ucrt64\\bin\\c++.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -x c++-header -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.hxx -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\cmake_pch.hxx.gch -c C:\\Code\\MegadriveTools\\build\\vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\cmake_pch.hxx.cxx",
   "file": "C:\\Code\\MegadriveTools\\build\\vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\cmake_pch.hxx.cxx",
   "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\cmake_pch.hxx.gch"
@@ -253,6 +271,12 @@
 },
 {
   "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\events\\SDL_notificationevents.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\events\\SDL_notificationevents.c",
+  "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\events\\SDL_notificationevents.c",
+  "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\events\\SDL_notificationevents.c.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
   "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\events\\SDL_pen.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\events\\SDL_pen.c",
   "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\events\\SDL_pen.c",
   "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\events\\SDL_pen.c.obj"
@@ -397,6 +421,12 @@
 },
 {
   "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\notification\\SDL_notification.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\notification\\SDL_notification.c",
+  "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\notification\\SDL_notification.c",
+  "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\notification\\SDL_notification.c.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
   "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\power\\SDL_power.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\power\\SDL_power.c",
   "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\power\\SDL_power.c",
   "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\power\\SDL_power.c.obj"
@@ -490,6 +520,12 @@
   "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\render\\opengl\\SDL_shaders_gl.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\render\\opengl\\SDL_shaders_gl.c",
   "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\render\\opengl\\SDL_shaders_gl.c",
   "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\render\\opengl\\SDL_shaders_gl.c.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\render\\opengles\\SDL_render_gles.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\render\\opengles\\SDL_render_gles.c",
+  "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\render\\opengles\\SDL_render_gles.c",
+  "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\render\\opengles\\SDL_render_gles.c.obj"
 },
 {
   "directory": "C:/Code/MegadriveTools/build",
@@ -1180,6 +1216,12 @@
   "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\tray\\windows\\SDL_tray.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\tray\\windows\\SDL_tray.c",
   "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\tray\\windows\\SDL_tray.c",
   "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\tray\\windows\\SDL_tray.c.obj"
+},
+{
+  "directory": "C:/Code/MegadriveTools/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\cc.exe -DDLL_EXPORT -DSDL_BUILD_MAJOR_VERSION=3 -DSDL_BUILD_MICRO_VERSION=0 -DSDL_BUILD_MINOR_VERSION=5 -DUSING_GENERATED_CONFIG_H -IC:/Code/MegadriveTools/build/vendored/SDL/include-config-/build_config -IC:/Code/MegadriveTools/build/vendored/SDL/include-revision -IC:/Code/MegadriveTools/vendored/SDL/include -IC:/Code/MegadriveTools/vendored/SDL/src -Wall -Wundef -Wfloat-conversion -fno-strict-aliasing -Wshadow -Wno-unused-local-typedefs -Wimplicit-fallthrough -fdiagnostics-color=always -idirafterC:/Code/MegadriveTools/vendored/SDL/src/video/khronos -Winvalid-pch -include C:/Code/MegadriveTools/build/vendored/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h -o vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\notification\\windows\\SDL_windowsnotification.c.obj -c C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\notification\\windows\\SDL_windowsnotification.c",
+  "file": "C:\\Code\\MegadriveTools\\vendored\\SDL\\src\\notification\\windows\\SDL_windowsnotification.c",
+  "output": "vendored\\SDL\\CMakeFiles\\SDL3-shared.dir\\src\\notification\\windows\\SDL_windowsnotification.c.obj"
 },
 {
   "directory": "C:/Code/MegadriveTools/build",

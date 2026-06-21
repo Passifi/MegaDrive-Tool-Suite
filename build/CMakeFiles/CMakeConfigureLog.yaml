@@ -5554,3 +5554,114 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:160 (try_compile)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "vendored/SDL/CMakeLists.txt:1189 (check_symbol_exists)"
+    checks:
+      - "Looking for wcstoll"
+    directories:
+      source: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-5mim3t"
+      binary: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-5mim3t"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Code/MegadriveTools/vendored/SDL/cmake"
+    buildResult:
+      variable: "LIBC_HAS_WCSTOLL"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-5mim3t'
+        
+        Run Build Command(s): C:/msys64/ucrt64/bin/ninja.exe -v cmTC_ead6c
+        [1/2] C:\\msys64\\ucrt64\\bin\\cc.exe   -D_GNU_SOURCE=1 -o CMakeFiles/cmTC_ead6c.dir/CheckSymbolExists.c.obj -c C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-5mim3t/CheckSymbolExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\msys64\\ucrt64\\bin\\cc.exe -D_GNU_SOURCE=1  CMakeFiles/cmTC_ead6c.dir/CheckSymbolExists.c.obj -o cmTC_ead6c.exe -Wl,--out-implib,libcmTC_ead6c.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:160 (try_compile)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "vendored/SDL/CMakeLists.txt:1189 (check_symbol_exists)"
+    checks:
+      - "Looking for wcstoul"
+    directories:
+      source: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-0g2nnv"
+      binary: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-0g2nnv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Code/MegadriveTools/vendored/SDL/cmake"
+    buildResult:
+      variable: "LIBC_HAS_WCSTOUL"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-0g2nnv'
+        
+        Run Build Command(s): C:/msys64/ucrt64/bin/ninja.exe -v cmTC_2cda9
+        [1/2] C:\\msys64\\ucrt64\\bin\\cc.exe   -D_GNU_SOURCE=1 -o CMakeFiles/cmTC_2cda9.dir/CheckSymbolExists.c.obj -c C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-0g2nnv/CheckSymbolExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\msys64\\ucrt64\\bin\\cc.exe -D_GNU_SOURCE=1  CMakeFiles/cmTC_2cda9.dir/CheckSymbolExists.c.obj -o cmTC_2cda9.exe -Wl,--out-implib,libcmTC_2cda9.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:160 (try_compile)"
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckSymbolExists.cmake:65 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "vendored/SDL/CMakeLists.txt:1189 (check_symbol_exists)"
+    checks:
+      - "Looking for wcstoull"
+    directories:
+      source: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-l003kr"
+      binary: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-l003kr"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Code/MegadriveTools/vendored/SDL/cmake"
+    buildResult:
+      variable: "LIBC_HAS_WCSTOULL"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-l003kr'
+        
+        Run Build Command(s): C:/msys64/ucrt64/bin/ninja.exe -v cmTC_3dbda
+        [1/2] C:\\msys64\\ucrt64\\bin\\cc.exe   -D_GNU_SOURCE=1 -o CMakeFiles/cmTC_3dbda.dir/CheckSymbolExists.c.obj -c C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-l003kr/CheckSymbolExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\msys64\\ucrt64\\bin\\cc.exe -D_GNU_SOURCE=1  CMakeFiles/cmTC_3dbda.dir/CheckSymbolExists.c.obj -o cmTC_3dbda.exe -Wl,--out-implib,libcmTC_3dbda.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/msys64/ucrt64/share/cmake/Modules/CheckIncludeFile.cmake:99 (try_compile)"
+      - "vendored/SDL/CMakeLists.txt:2375 (check_include_file)"
+    checks:
+      - "Looking for Windows.ui.notifications.h"
+    directories:
+      source: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-vwvg8f"
+      binary: "C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-vwvg8f"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Code/MegadriveTools/vendored/SDL/cmake"
+    buildResult:
+      variable: "HAVE_WINDOWS_UI_NOTIFICATIONS_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-vwvg8f'
+        
+        Run Build Command(s): C:/msys64/ucrt64/bin/ninja.exe -v cmTC_6c2a1
+        [1/2] C:\\msys64\\ucrt64\\bin\\cc.exe   -D_GNU_SOURCE=1 -o CMakeFiles/cmTC_6c2a1.dir/CheckIncludeFile.c.obj -c C:/Code/MegadriveTools/build/CMakeFiles/CMakeScratch/TryCompile-vwvg8f/CheckIncludeFile.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\msys64\\ucrt64\\bin\\cc.exe -D_GNU_SOURCE=1  CMakeFiles/cmTC_6c2a1.dir/CheckIncludeFile.c.obj -o cmTC_6c2a1.exe -Wl,--out-implib,libcmTC_6c2a1.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+...
